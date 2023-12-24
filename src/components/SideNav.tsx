@@ -1,7 +1,16 @@
+import Logo from "./Logo"
+import { Button } from "./ui/button"
+
 function SideNav() {
   return (
     <div>
-      <div className="text-white">This is the sideBar</div>
+      <div>
+        <Logo />
+        {/* <Navlinks /> */}
+        {/* user && <ProfileLink/> */}
+
+        <div>{/* <MoreDropdown /> */}</div>
+      </div>
     </div>
   )
 }
