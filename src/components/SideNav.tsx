@@ -1,5 +1,6 @@
 import Logo from "./Logo"
 import NavLinks from "./NavLinks"
+import MoreDropdown from "./MoreDropdown"
 import { Button } from "./ui/button"
 
 function SideNav() {
@@ -10,7 +11,9 @@ function SideNav() {
         <NavLinks />
         {/* user && <ProfileLink/> */}
 
-        <div>{/* <MoreDropdown /> */}</div>
+        <div className="hidden md:flex relative md:mt-auto flex-1 items-end w-full">
+          <MoreDropdown />
+        </div>
       </div>
     </div>
   )
