@@ -2,7 +2,7 @@
 
 import { API_ENDPOINTS } from "../configs/apiEndpoints"
 
-export async function login(username: string, password: string) {
+export async function login(email: string, password: string) {
   try {
     const response = await fetch(`${API_ENDPOINTS.LOGIN}`, {
       method: "POST",
@@ -10,11 +10,17 @@ export async function login(username: string, password: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
+        email,
         password,
       }),
     })
-    return response.json()
+    const data = await response.json()
+
+    const token = data.token
+
+    localStorage.setItem("jwt", token)
+
+    return data
   } catch (error) {
     console.error(error)
     throw error
