@@ -64,7 +64,10 @@ function MoreDropdown() {
 
         <DropdownMenuContent
           ref={ref}
-          className={cn("dark:bg-neutral-800 w-64 !rounded-xl !p-0 transition-opacity")}
+          className={cn(
+            "dark:bg-neutral-800 w-64 !rounded-xl !p-0 transition-opacity",
+            !open && "opacity-0"
+          )}
           align="end"
           alignOffset={-40}
         >
@@ -102,7 +105,7 @@ function MoreDropdown() {
           {showModeToggle && (
             <>
               <div
-                className="flex items-center border-b border-gray-200 dark:border-neutral-700 py-3.5 px-2.5"
+                className="flex items-center border-b border-gray-200 dark:border-neutral-700 py-3.5 px-2.5 cursor-pointer"
                 onClick={() => setShowModeToggle(false)}
               >
                 <ChevronLeft size={18} />
