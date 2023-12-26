@@ -101,8 +101,11 @@ function MoreDropdown() {
 
           {showModeToggle && (
             <>
-              <div className="flex items-center border-b border-gray-200 dark:border-neutral-700 py-3.5 px-2.5">
-                <ChevronLeft size={18} onClick={() => setShowModeToggle(false)} />
+              <div
+                className="flex items-center border-b border-gray-200 dark:border-neutral-700 py-3.5 px-2.5"
+                onClick={() => setShowModeToggle(false)}
+              >
+                <ChevronLeft size={18} />
                 <p className="font-bold ml-1">Switch appearance</p>
                 {theme === "dark" ? (
                   <Moon size={20} className="ml-auto" />
