@@ -26,13 +26,14 @@ import { cn } from "@/lib/utils"
 import { Menu } from "lucide-react"
 import { useState, useEffect, useRef } from "react"
 import { useTheme } from "next-themes"
+import { useTranslations } from "next-intl"
 
 function MoreDropdown() {
   const [showModeToggle, setShowModeToggle] = useState(false)
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
   const { theme, setTheme } = useTheme()
-
+  const t = useTranslations('Navigation')
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
       if (!event.target) return
@@ -58,7 +59,7 @@ function MoreDropdown() {
             className="md:w-full !justify-start space-x-2 !px-3"
           >
             <Menu />
-            <div className="hidden lg:block">More</div>
+            <div className="hidden lg:block">{t('sidebar.more.more')}</div>
           </Button>
         </DropdownMenuTrigger>
 
@@ -75,16 +76,16 @@ function MoreDropdown() {
             <>
               <DropdownMenuItem className="menuItem">
                 <Settings size={20} />
-                <p>Settings</p>
+                <p>{t('sidebar.more.settings')}</p>
               </DropdownMenuItem>
               <DropdownMenuItem className="menuItem">
                 <Activity size={20} />
-                <p>Your activity</p>
+                <p>{t('sidebar.more.your_activity')}</p>
               </DropdownMenuItem>
 
               <DropdownMenuItem className="menuItem">
                 <Bookmark size={20} />
-                <p>Saved</p>
+                <p>{t('sidebar.more.saved')}</p>
               </DropdownMenuItem>
 
               <DropdownMenuItem
@@ -92,7 +93,7 @@ function MoreDropdown() {
                 onClick={() => setShowModeToggle(true)}
               >
                 <Moon size={20} />
-                <p>Switch appearance</p>
+                <p>{t('sidebar.more.switch_appearance')}</p>
               </DropdownMenuItem>
 
               {/* <DropdownMenuItem className="menuItem" onClick={() => signOut()}>
