@@ -1,4 +1,10 @@
 "use client"
+
+import { ComponentProps } from 'react';
+import { usePathname } from 'next/navigation';
+import { checkPathname } from "../lib/navigationLinks/checkPathname"
+import { pathnames, type AppPathnames } from '../i18n/intlConfig';
+import { Link } from '../i18n/navigation'
 import {
   Home,
   Search,
@@ -7,36 +13,55 @@ import {
   MessageCircle,
   Heart,
   PlusSquare,
+  LucideIcon,
 } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+// import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "./ui/button"
-const links = [
-  { name: "Home", href: "/dashboard", icon: Home },
-  { name: "Search", href: "/dashboard/search", icon: Search, hideOnMobile: true },
-  { name: "Explore", href: "/dashboard/explore", icon: Compass },
-  { name: "Reels", href: "/dashboard/reels", icon: Clapperboard },
-  { name: "Messages", href: "/dashboard/messages", icon: MessageCircle },
-  {
-    name: "Notifications",
-    href: "/dashboard/notifications",
-    icon: Heart,
-    hideOnMobile: true,
-  },
-  { name: "Create", href: "/dashboard/create", icon: PlusSquare },
-]
+import { useTranslations } from "next-intl"
+
+interface NavLink {
+  name: string;
+  href: AppPathnames;
+  icon: LucideIcon;
+  hideOnMobile?: boolean;
+}
+
+const getLinks = () => {
+  const t = useTranslations('Navigation')
+  const links: NavLink[] = [
+    { name: t('sidebar.home'), href: "/dashboard", icon: Home },
+    { name: t('sidebar.search'), href: "/dashboard/search", icon: Search, hideOnMobile: true },
+    { name: t('sidebar.explore'), href: "/dashboard/explore", icon: Compass },
+    { name: t('sidebar.reels'), href: "/dashboard/reels", icon: Clapperboard },
+    { name: t('sidebar.messages'), href: "/dashboard/messages", icon: MessageCircle },
+    {
+      name: t('sidebar.notifications'),
+      href: "/dashboard/notifications",
+      icon: Heart,
+      hideOnMobile: true,
+    },
+    { name: t('sidebar.create'), href: "/dashboard/create", icon: PlusSquare },
+  ];
+  return links;
+}
+
 function NavLinks() {
-  const pathname = usePathname()
+  const links = getLinks();
   return (
     <>
       {links.map((link) => {
         const LinkIcon = link.icon
-        const isActive = pathname === link.href
+        const checkPathnameData = checkPathname(link.href);
+        const currentPathname = usePathname(); // Assurez-vous d'avoir une fonction usePathname appropriée
+        const currentPathnameWithoutLocale = currentPathname.replace(/^\/[a-z]{2}\b/, '');
+        const isActive = checkPathnameData?.includes(currentPathnameWithoutLocale);
+      
         return (
-          <Link
-            href={link.href}
+        
+          <NavigationLink
             key={link.name}
+            href={link.href}
             className={buttonVariants({
               variant: isActive ? "secondary" : "ghost",
               className: cn("navLink", { "hidden md:flex": link.hideOnMobile }),
@@ -47,11 +72,32 @@ function NavLinks() {
             <p className={`${cn("hidden lg:block", { "font-extrabold": isActive })}`}>
               {link.name}
             </p>
-          </Link>
+          </NavigationLink>
         )
       })}
     </>
   )
 }
 
+
 export default NavLinks
+
+function NavigationLink<Pathname extends AppPathnames>({
+  href,
+  ...rest
+}: ComponentProps<typeof Link<Pathname>>) {
+
+  const checkPathnameData = checkPathname(href);
+  const currentPathname = usePathname(); // Assurez-vous d'avoir une fonction usePathname appropriée
+  const currentPathnameWithoutLocale = currentPathname.replace(/^\/[a-z]{2}\b/, '');
+  const isActive = checkPathnameData?.includes(currentPathnameWithoutLocale);
+
+  return (
+    <Link
+      aria-current={isActive ? 'page' : undefined}
+    
+      href={href}
+      {...rest}
+    />
+  );
+}
