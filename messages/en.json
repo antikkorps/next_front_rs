@@ -1,0 +1,21 @@
+{
+    "Navigation": {
+        "sidebar": {
+            "home": "Home",
+            "search": "Search",
+            "explore": "Explore",
+            "reels": "Reels",
+            "messages": "Messages",
+            "notifications": "Notifications",
+            "create": "Create",
+            "more": {
+                "more": "More",
+                "settings": "Settings",
+                "your_activity": "Your Activity",
+                "saved": "Saved",
+                "switch_appearance": "Switch appearance"
+            }
+        }
+        
+    }
+}
