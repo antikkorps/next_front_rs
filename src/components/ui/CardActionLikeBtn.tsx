@@ -10,7 +10,7 @@ export default function CardActionLikeBtn() {
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          className="w-8 h-8 mr-2 text-gray-400 hover:text-red-500"
+          className="w-6 h-6 mr-2 text-gray-400 hover:text-red-500"
         >
           <path
             stroke-linecap="round"
