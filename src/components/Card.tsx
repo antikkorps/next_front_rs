@@ -7,8 +7,8 @@ import CardActionBookmarkBtn from "./ui/CardActionBookmarkBtn"
 export default function Card() {
   return (
     <>
-      <article className=" w-4/5 mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
-        <div className="max-h-125 overflow-hidden">
+      <article className="w-4/5 mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
+        <div className="max-h-full overflow-hidden">
           <Image
             className="transform duration-300 hover:scale-110"
             width={500}
