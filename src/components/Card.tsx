@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import CardActionLikeBtn from "./ui/CardActionLikeBtn"
 import CardActionCommentBtn from "./ui/CardActionCommentBtn"
 import CardActionShareBtn from "./ui/CardActionShareBtn"
@@ -54,7 +55,9 @@ export default function Card() {
         <div className="mt-3">
           <h3 className="mb-1">Comments</h3>
           <p className="text-sm text-gray-500">Wow incredible piece of work!!!</p>
-          <p className="text-sm text-gray-500">Read all comments...</p>
+          <p className="text-sm text-gray-500">
+            <Link href="">Read all comments...</Link>
+          </p>
         </div>
       </article>
     </>
