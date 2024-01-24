@@ -7,7 +7,7 @@ export default function Card() {
       <article className="mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
         <div className="max-h-125 overflow-hidden">
           <Image
-            className="transform duration-300 group-hover:scale-110"
+            className="transform duration-300 hover:scale-110"
             width={500}
             height={900}
             src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
