@@ -83,4 +83,18 @@
   .menuItem {
     @apply dark:hover:bg-[#3C3C3C] !cursor-pointer flex items-center gap-x-2 !px-4 !py-3.5 !m-1.5 !rounded-lg font-medium;
   }
+
+  /*CARD STYLE*/
+
+  .cardTitle {
+    @apply text-3xl font-semibold mt-4 md:mt-10 text-gray-700 dark:text-gray-200;
+  }
+
+  .cardH3Simple {
+    @apply text-gray-700 dark:text-gray-400 text-justify font-semibold leading-relaxed;
+  }
+
+  .cardTextSimple {
+    @apply text-gray-700 dark:text-gray-400 text-justify leading-relaxed;
+  }
 }
