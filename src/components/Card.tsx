@@ -1,10 +1,13 @@
 import Image from "next/image"
 import CardActionLikeBtn from "./ui/CardActionLikeBtn"
+import CardActionCommentBtn from "./ui/CardActionCommentBtn"
+import CardActionShareBtn from "./ui/CardActionShareBtn"
+import CardActionBookmarkBtn from "./ui/CardActionBookmarkBtn"
 
 export default function Card() {
   return (
     <>
-      <article className="mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
+      <article className=" w-4/5 mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
         <div className="max-h-125 overflow-hidden">
           <Image
             className="transform duration-300 hover:scale-110"
@@ -14,10 +17,18 @@ export default function Card() {
             alt=""
           />
         </div>
-        <div className="text-base mt-4 flex flex-col justify-start">
-          <CardActionLikeBtn />
-          <div className="text-gray-500 mt-2">xxx Likes</div>
+        <div className="text-base mt-4 flex justify-between relative">
+          <div className="flex">
+            <CardActionLikeBtn />
+            <CardActionCommentBtn />
+            <CardActionShareBtn />
+            <div className="absolute right-0">
+              <CardActionBookmarkBtn />
+            </div>
+          </div>
         </div>
+        <div className="text-gray-500 mt-2">xxx Likes</div>
+
         <div className="flex justify-between my-5 ">
           <div className="text-orange-500 text-base font-semibold">tags</div>
           <div className="text-base text-right">
