@@ -10,6 +10,16 @@ export const pathnames = {
     fr: "/connexion",
   },
 
+  "/signup": {
+    en: "/signup",
+    fr: "/inscription",
+  },
+
+  "/forgotten-password": {
+    en: "/forgotten-password",
+    fr: "/mot-de-passe-oublie",
+  },
+
   // SIDEBAR NAV
   "/dashboard": {
     en: "/dashboard",

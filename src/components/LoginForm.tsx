@@ -1,5 +1,5 @@
 "use client"
-import Link from "next/image"
+import Link from "next/link"
 import { Waves } from "lucide-react"
 
 export default function LoginForm() {
@@ -75,12 +75,12 @@ export default function LoginForm() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Pas encore inscrit ?{" "}
-            <a
-              href="#"
+            <Link
+              href="/signup"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Rejoignez-nous
-            </a>
+            </Link>
           </p>
         </div>
       </div>
