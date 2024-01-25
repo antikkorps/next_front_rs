@@ -17,7 +17,7 @@ export default function CardActionLikeBtn() {
             fill="red"
             viewBox="0 0 24 24"
             stroke="red"
-            className="w-6 h-6 mr-2 text-red-500 hover:animate-ping"
+            className="w-6 h-6 mr-2 text-red-200 hover:animate-ping"
           >
             <path
               strokeLinecap="round"
@@ -32,7 +32,7 @@ export default function CardActionLikeBtn() {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            className="w-6 h-6 mr-2 text-gray-400 hover:text-red-500 hover:animate-ping"
+            className="w-6 h-6 mr-2 text-gray-400 hover:text-red-200 hover:animate-ping"
           >
             <path
               strokeLinecap="round"
