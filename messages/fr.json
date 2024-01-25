@@ -1,20 +1,21 @@
 {
-    "Navigation": {
-        "sidebar": {
-            "home": "Accueil",
-            "search": "Rechercher",
-            "explore": "Explorer",
-            "reels": "Reels",
-            "messages": "Messages",
-            "notifications": "Notifications",
-            "create": "Créer",
-            "more": {
-                "more": "Plus",
-                "settings": "Paramètres",
-                "your_activity": "Votre activité",
-                "saved": "Enregistrement",
-                "switch_appearance": "Changer d'apparence"
-            }
-        }
+  "Navigation": {
+    "sidebar": {
+      "home": "Accueil",
+      "search": "Rechercher",
+      "explore": "Explorer",
+      "reels": "Reels",
+      "messages": "Messages",
+      "notifications": "Notifications",
+      "create": "Créer",
+      "shop": "Boutique",
+      "more": {
+        "more": "Plus",
+        "settings": "Paramètres",
+        "your_activity": "Votre activité",
+        "saved": "Enregistrement",
+        "switch_appearance": "Changer d'apparence"
+      }
     }
+  }
 }
