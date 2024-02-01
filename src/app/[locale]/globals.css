@@ -71,7 +71,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply dark:bg-neutral-900 bg-neutral-300 text-foreground antialiased;
   }
 }
 
