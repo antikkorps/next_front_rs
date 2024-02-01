@@ -20,6 +20,11 @@ export const pathnames = {
     fr: "/mot-de-passe-oublie",
   },
 
+  "/coming-soon": {
+    en: "/coming-soon",
+    fr: "/bientot",
+  },
+
   // SIDEBAR NAV
   "/dashboard": {
     en: "/dashboard",
