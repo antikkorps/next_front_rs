@@ -1,3 +1,5 @@
+import Link from "next/link"
+import { ChevronLeft } from "lucide-react"
 export default function ComingSoon() {
   return (
     <>
@@ -25,6 +27,12 @@ export default function ComingSoon() {
                   >
                     Subscribe
                   </button>
+                </div>
+                <div className="flex justify-center hover:scale-110 transition-all mt-6">
+                  <Link href="/" className="flex justify-center">
+                    <ChevronLeft className="" />
+                    Revenir sur le site
+                  </Link>
                 </div>
               </form>
             </div>
