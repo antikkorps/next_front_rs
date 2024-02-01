@@ -31,7 +31,7 @@ export default function ComingSoon() {
                 <div className="flex justify-center hover:scale-110 transition-all mt-6">
                   <Link href="/" className="flex justify-center">
                     <ChevronLeft className="" />
-                    Revenir sur le site
+                    Back to site
                   </Link>
                 </div>
               </form>
