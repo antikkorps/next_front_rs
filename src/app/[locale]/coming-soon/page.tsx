@@ -39,9 +39,11 @@ export default function ComingSoon() {
                 What to expect
               </h2>
               <p className="text-gray-600 dark:text-white mb-12">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec orci
-                quis justo aliquam euismod eget a leo. Sed eget orci feugiat, porttitor
-                nibh vel, faucibus mauris.
+                As all of you know, Tattoo artists are artists. They regularly produce art
+                or objects from their art. Here you will be able to buy their art and
+                support them. Moreover you will find some goodies from our site. Buying
+                them will show your support to us and help the site grow. <br />
+                Of course, we ship worldwide.
               </p>
             </div>
             <div className="flex flex-wrap -mx-4 mt-12">
