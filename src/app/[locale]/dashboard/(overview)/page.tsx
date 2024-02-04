@@ -1,4 +1,5 @@
 import Card from "@/components/Card"
+import CardDetail from "@/components/CardDetail"
 import Stories from "@/components/Stories"
 
 export default function DashboardPage() {
@@ -8,6 +9,7 @@ export default function DashboardPage() {
         <Stories />
       </div>
       <Card />
+      <CardDetail />
     </>
   )
 }
