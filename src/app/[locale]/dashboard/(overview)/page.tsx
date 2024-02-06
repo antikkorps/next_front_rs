@@ -20,6 +20,10 @@ export default function DashboardPage() {
       })
   }, [])
 
+  const login = API_ENDPOINTS.LOGIN
+  console.log("url de login", login)
+
+
   return (
     <>
       <div className="w-full sm:w-1/2 flex justify-center mx-auto mb-10 ">
