@@ -63,4 +63,14 @@ export const API_ENDPOINTS = {
   BOOKMARKS_BY_USER_ID: `${BASE_URL}/bookmarks/user/`,
   BOOKMARKS_BY_MEDIA_ID: `${BASE_URL}/bookmarks/media/`,
   BOOKMARKS_BY_SALON_ID: `${BASE_URL}/bookmarks/salon/`,
+
+  //POSTS RELATED
+  POSTS: `${BASE_URL}/post`,
+  POST_BY_ID: `${BASE_URL}/post/`,
+  POSTS_UPDATE: `${BASE_URL}/post/update`,
+  POSTS_DELETE: `${BASE_URL}/post/delete`,
+  POSTS_CREATE: `${BASE_URL}/post/create`,
+  POSTS_BY_USER_ID: `${BASE_URL}/post/user/`,
+  POSTS_BY_MEDIA_ID: `${BASE_URL}/post/media/`,
+  POSTS_BY_SALON_ID: `${BASE_URL}/post/salon/`,
 }
