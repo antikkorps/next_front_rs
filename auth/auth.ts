@@ -1,8 +1,10 @@
 //all the functions related to authentication which are calling the api methods
 
+import { SignUpForm } from "@/zod/auth/signUp"
 import { API_ENDPOINTS } from "../configs/apiEndpoints"
 
-export async function login(email: string, password: string) {
+export async function login(data: SignUpForm) {
+  const { email, password } = data;
   try {
     const response = await fetch(`${API_ENDPOINTS.LOGIN}`, {
       method: "POST",
@@ -42,7 +44,9 @@ export async function logout() {
   }
 }
 
-export async function register(username: string, password: string, email: string) {
+export async function register(data: SignUpForm) {
+  const { password, email } = data;
+  return data;
   try {
     const response = await fetch(`${API_ENDPOINTS.REGISTER}`, {
       method: "POST",
@@ -50,7 +54,6 @@ export async function register(username: string, password: string, email: string
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
         password,
         email,
       }),
