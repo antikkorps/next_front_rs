@@ -1,14 +1,14 @@
 //TODO change this to the actual api url that we will choose
-const BASE_URL = "localhost:4000/api/v1"
+const BASE_URL = process.env.BASE_URL
 
 export const API_ENDPOINTS = {
   //AUTH RELATED
-  LOGIN: `${BASE_URL}/login`,
-  LOGOUT: `${BASE_URL}/logout`,
-  REGISTER: `${BASE_URL}/register`,
+  LOGIN: `${BASE_URL}/auth/signin`,
+  LOGOUT: `${BASE_URL}/auth/logout`,
+  REGISTER: `${BASE_URL}/auth/signup`,
   //TODO CORRECT THIS ENDPOINTS IN THE BACKEND
-  FORGOTTEN_PASSWORD: `${BASE_URL}/forgotten-password`,
-  RESET_PASSWORD: `${BASE_URL}/reset-password`,
+  FORGOTTEN_PASSWORD: `${BASE_URL}/auth/forgotten-password`,
+  RESET_PASSWORD: `${BASE_URL}/auth/reset-password`,
 
   //USERS RELATED
   USERS: `${BASE_URL}/users/all`,
