@@ -21,7 +21,11 @@ export default function DashboardPage() {
       <div className="w-full sm:w-1/2 flex justify-center mx-auto mb-10 ">
         <Stories />
       </div>
-      <Card />
+      <div>
+        {posts.map((post) => (
+          <Card key={post.id} post={post} />
+        ))}
+      </div>
       <CardDetail />
     </>
   )
