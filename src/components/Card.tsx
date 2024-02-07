@@ -1,32 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import CardActionLikeBtn from "./ui/CardActionLikeBtn"
 import CardActionCommentBtn from "./ui/CardActionCommentBtn"
 import CardActionShareBtn from "./ui/CardActionShareBtn"
 import CardActionBookmarkBtn from "./ui/CardActionBookmarkBtn"
-
-interface Tag {
-  id: number
-  postId: number
-  tagName: string
-}
-interface CardProps {
-  post: {
-    id: number
-    title: string
-    description: string
-    postTypeChoice?: object
-    image: string
-    tags: Tag[]
-    date: string
-    likes: number
-    comments: number
-    shares: number
-    bookmarks: number
-    createdAt?: string
-  }
-}
+import { Tag, CardProps } from "../../types/all"
 
 export default function Card({ post }: CardProps) {
   return (
