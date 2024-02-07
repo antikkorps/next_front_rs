@@ -1,101 +1,170 @@
 "use client"
-import Link from "next/link"
-import { Waves } from "lucide-react"
+
+import { Check, CheckCheck, Eye, EyeOff, Waves } from "lucide-react"
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Button } from "./ui/button"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
+import { Input } from "./ui/input"
+import { Link } from "@/i18n/navigation"
+import { signUpFormSchemaValidation } from "@/zod/auth/signUp"
+import { register } from "../../auth/auth"
+import { useState } from "react"
+
+
 
 export default function SignupForm() {
+  const [registered, setRegistered] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [visibleCpass, setVisibleCpass] = useState(false);
+  const form = useForm<z.infer<typeof signUpFormSchemaValidation>>({
+    resolver: zodResolver(signUpFormSchemaValidation),
+    defaultValues: {
+      email: "",
+      password: "",
+      cpassword: "",
+    },
+    mode: "onChange"
+  })
+
+  async function onSubmit(values: z.infer<typeof signUpFormSchemaValidation>) {
+    console.log(values)
+    const { cpassword, ...withoutCPassword } = values;
+    try {
+      const res = await register(withoutCPassword);
+      console.log({ res })
+      // sonner
+      // reset le form
+      // redirect ? login ? auth ? 
+      setRegistered(true)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      // loading
+    }
+  }
+
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-24 lg:py-48 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <Waves className="justify-center mx-auto text-center h-32 w-32" />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-            Inscrivez-vous
-          </h2>
-        </div>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-10 lg:px-8">
+        {registered ? (
+          <div className="text-center px-4 max-w-2xl mx-auto flex flex-col items-center justify-center min-h-full">
+            <Check className="w-20 h-20 text-green-400" />
+            <h2>Inscription réussie !</h2>
+            <p>Merci de votre inscription. Nous vous avons envoyé un mail de confirmation. Celui-ci peut mettre quelques minutes à arriver.</p>
+            <p>Pas de lien reçu?</p>
+          </div>
+        ) : (
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-md">
+            <Waves className="justify-center mx-auto text-center h-16 w-16" />
+            <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
+              Inscrivez-vous
+            </h2>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
-              >
-                Email
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6">
+                <FormField
+                  control={form.control}
                   name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          autoComplete="email"
+                          placeholder="email" {...field}
+                          className="input"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-            </div>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
-                >
-                  Mot de passe
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
+                <FormField
+                  control={form.control}
                   name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            type={visible ? 'text' : 'password'}
+                            placeholder="password" {...field}
+                            className="input w-full relative"
+                          />
+                          <div
+                            onClick={() => setVisible(!visible)}
+                            className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
+                            {visible ? (
+                              <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
+                            ) : (
+                              <Eye className="w-[15px] h-[15px] text-secondary-foreground" />
+                            )}
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-            </div>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
-                >
-                  Saisissez à nouveau le mot de passe
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                <FormField
+                  control={form.control}
+                  name="cpassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm your password</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            type={visibleCpass ? 'text' : 'password'}
+                            placeholder="password" {...field}
+                            className="input w-full relative"
+                          />
+                          <div
+                            onClick={() => setVisibleCpass(!visibleCpass)}
+                            className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
+                            {visibleCpass ? (
+                              <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
+                            ) : (
+                              <Eye className="w-[15px] h-[15px] text-secondary-foreground" />
+                            )}
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-            </div>
 
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                <div className="pt-6">
+                  <Button
+                    disabled={form.formState.isLoading || !form.formState.isValid}
+                    className="w-full"
+                    type="submit"
+                  >S'inscrire</Button>
+                </div>
+              </form>
+            </Form>
+
+            <p className="mt-10 text-center text-sm text-gray-500">
+              Déjà inscrit ?{" "}
+              <Link
+                href="/login"
+                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
               >
-                S&apos;inscrire
-              </button>
-            </div>
-          </form>
+                Connectez-vous
+              </Link>
+            </p>
+          </div>
+        )}
 
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Déjà inscrit ?{" "}
-            <Link
-              href="/signup"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Connectez-vous
-            </Link>
-          </p>
-        </div>
       </div>
     </>
   )

@@ -14,7 +14,6 @@ const intlMiddleware = createMiddleware({
   });
  
 const authMiddleware = async (req: NextRequest) => {
-  
     // All the logic to get UserData
     const userData = "OK";
     if (!userData) {
