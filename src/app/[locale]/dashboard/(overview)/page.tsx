@@ -16,10 +16,10 @@ interface Post {
   bookmarks: number
 }
 
-export default function DashboardPage() {
-  fetch(API_ENDPOINTS.POSTS)
+export default async function DashboardPage() {
+  const posts = await fetch(API_ENDPOINTS.POSTS)
     .then((response) => response.json())
-    .then((data) => {
+    .then((data: Post[]) => {
       console.log("Réponse de l'API:", data)
     })
     .catch((error) => {
@@ -36,7 +36,7 @@ export default function DashboardPage() {
       </div>
       <div>
         {posts.map((post: Post) => (
-          <Card key={post.id} post={post} />
+          <Card key={post.id} />
         ))}
       </div>
       <CardDetail />
