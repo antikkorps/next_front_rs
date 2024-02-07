@@ -1,7 +1,7 @@
 import Card from "@/components/Card"
 import CardDetail from "@/components/CardDetail"
 import Stories from "@/components/Stories"
-import { getPosts } from "@/app/actions"
+import { getPosts } from "../../../../../actions"
 
 export default async function DashboardPage() {
   const posts = await getPosts()

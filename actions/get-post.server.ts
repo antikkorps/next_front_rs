@@ -1,4 +1,4 @@
-import { API_ENDPOINTS } from "../../../configs/apiEndpoints"
+import { API_ENDPOINTS } from "../configs/apiEndpoints"
 
 interface Post {
   id: number
