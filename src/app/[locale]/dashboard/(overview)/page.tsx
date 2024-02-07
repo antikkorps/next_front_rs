@@ -14,7 +14,7 @@ export default async function DashboardPage() {
 
       <div>
         {posts.map((post) => (
-          <Card key={post.id} />
+          <Card key={post.id} post={post} />
         ))}
       </div>
       <CardDetail />
