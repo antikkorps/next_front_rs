@@ -17,5 +17,11 @@ export interface CardProps {
     shares: number
     bookmarks: number
     createdAt?: string
+    _count: {
+      likes: number
+      comments: number
+      shares: number
+      bookmarks: number
+    }
   }
 }

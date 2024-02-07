@@ -29,10 +29,16 @@ export default function Card({ post }: CardProps) {
             </div>
           </div>
         </div>
-        <div className="text-gray-500 mt-2">xxx Likes</div>
+        <div className="text-gray-500 mt-2">
+          {post._count.likes ? post._count.likes : "0"} likes
+        </div>
 
         <div className="flex justify-between my-5 ">
-          <div className="text-orange-500 text-base font-semibold">tags</div>
+          <div className="text-orange-500 text-base font-semibold">
+            {post.tags.map((tag, index) =>
+              tag.tagName ? <span key={index}>#{tag.tagName} </span> : null
+            )}
+          </div>
           <div className="text-base text-right">
             {post.createdAt ? (
               <>
