@@ -3,6 +3,19 @@ import CardDetail from "@/components/CardDetail"
 import Stories from "@/components/Stories"
 import { API_ENDPOINTS } from "../../../../../configs/apiEndpoints"
 
+interface Post {
+  id: number
+  title: string
+  description: string
+  image: string
+  tags: string[]
+  date: string
+  likes: number
+  comments: number
+  shares: number
+  bookmarks: number
+}
+
 export default function DashboardPage() {
   fetch(API_ENDPOINTS.POSTS)
     .then((response) => response.json())
@@ -22,7 +35,7 @@ export default function DashboardPage() {
         <Stories />
       </div>
       <div>
-        {posts.map((post) => (
+        {posts.map((post: Post) => (
           <Card key={post.id} post={post} />
         ))}
       </div>

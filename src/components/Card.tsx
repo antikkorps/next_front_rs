@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 import CardActionLikeBtn from "./ui/CardActionLikeBtn"
 import CardActionCommentBtn from "./ui/CardActionCommentBtn"
 import CardActionShareBtn from "./ui/CardActionShareBtn"
