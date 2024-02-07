@@ -97,4 +97,10 @@
   .cardTextSimple {
     @apply text-gray-700 dark:text-gray-400 text-justify leading-relaxed;
   }
+
+
+}
+
+.input {
+  @apply dark:bg-gray-700 bg-secondary text-secondary-foreground placeholder:text-gray-400
 }
