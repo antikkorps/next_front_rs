@@ -1,8 +1,20 @@
 import LoginForm from "@/components/LoginForm"
+import { pick } from "lodash";
+import { NextIntlClientProvider, useMessages } from "next-intl"
+
 export default function Login() {
+
+  const messages = useMessages();
   return (
     <>
-      <LoginForm />
+      <NextIntlClientProvider
+      messages={
+        pick(messages, ["Login", "Input", "Button"])
+      }
+      >
+        <LoginForm />
+      </NextIntlClientProvider>
+      
     </>
   )
 }

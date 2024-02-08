@@ -11,11 +11,16 @@ import { Link } from "@/i18n/navigation"
 import { signUpFormSchemaValidation } from "@/zod/auth/signUp"
 import { register } from "../../auth/auth"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 
 
 
 export default function SignupForm() {
-  const [registered, setRegistered] = useState(false);
+  const tRegister = useTranslations('Register');
+  const tInput = useTranslations('Input');
+  const tButton = useTranslations('Button');
+
+  const [registered, setRegistered] = useState(true);
   const [visible, setVisible] = useState(false);
   const [visibleCpass, setVisibleCpass] = useState(false);
   const form = useForm<z.infer<typeof signUpFormSchemaValidation>>({
@@ -51,15 +56,15 @@ export default function SignupForm() {
         {registered ? (
           <div className="text-center px-4 max-w-2xl mx-auto flex flex-col items-center justify-center min-h-full">
             <Check className="w-20 h-20 text-green-400" />
-            <h2>Inscription réussie !</h2>
-            <p>Merci de votre inscription. Nous vous avons envoyé un mail de confirmation. Celui-ci peut mettre quelques minutes à arriver.</p>
-            <p>Pas de lien reçu?</p>
+            <h2>{tRegister('Messages.register_success')}</h2>
+            <p>{tRegister('Messages.thank_you_register')}</p>
+            <p>{tRegister('Messages.no_link_received')} {" "} {tRegister('Messages.send_again')}</p>
           </div>
         ) : (
           <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-md">
             <Waves className="justify-center mx-auto text-center h-16 w-16" />
             <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-              Inscrivez-vous
+              {tRegister("title")}
             </h2>
 
             <Form {...form}>
@@ -71,12 +76,13 @@ export default function SignupForm() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{tInput('Email.name')}</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
                           autoComplete="email"
-                          placeholder="email" {...field}
+                          placeholder={tInput('Email.placeholder')} 
+                          {...field}
                           className="input"
                         />
                       </FormControl>
@@ -90,12 +96,13 @@ export default function SignupForm() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{tInput('Password.name')}</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             type={visible ? 'text' : 'password'}
-                            placeholder="password" {...field}
+                            placeholder={tInput('Password.placeholder')} 
+                            {...field}
                             className="input w-full relative"
                           />
                           <div
@@ -119,12 +126,13 @@ export default function SignupForm() {
                   name="cpassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Confirm your password</FormLabel>
+                      <FormLabel>{tInput('CPassword.name')}</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Input
                             type={visibleCpass ? 'text' : 'password'}
-                            placeholder="password" {...field}
+                            placeholder={tInput('CPassword.placeholder')} 
+                            {...field}
                             className="input w-full relative"
                           />
                           <div
@@ -148,18 +156,18 @@ export default function SignupForm() {
                     disabled={form.formState.isLoading || !form.formState.isValid}
                     className="w-full"
                     type="submit"
-                  >S'inscrire</Button>
+                  >{tButton('register')}</Button>
                 </div>
               </form>
             </Form>
 
             <p className="mt-10 text-center text-sm text-gray-500">
-              Déjà inscrit ?{" "}
+              {tRegister('already_have_account')}{" "}
               <Link
                 href="/login"
                 className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
               >
-                Connectez-vous
+                {tRegister('sign_in')}
               </Link>
             </p>
           </div>

@@ -9,8 +9,12 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { SignUpWithoutConfirmPassword } from "@/zod/auth/signUp"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 
 export default function LoginForm() {
+  const tLogin = useTranslations('Login');
+  const tInput = useTranslations('Input');
+  const tButton = useTranslations('Button');
   const [visible, setVisible] = useState(false);
   const form = useForm<z.infer<typeof SignUpWithoutConfirmPassword>>({
     resolver: zodResolver(SignUpWithoutConfirmPassword),
@@ -29,7 +33,7 @@ export default function LoginForm() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-md">
           <Waves className="justify-center mx-auto text-center h-16 w-16" />
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-            Inscrivez-vous
+            {tLogin('title')}
           </h2>
           <Form {...form}>
             <form
@@ -40,12 +44,13 @@ export default function LoginForm() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{tInput('Email.name')}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
                         autoComplete="email"
-                        placeholder="email" {...field}
+                        placeholder={tInput('Email.placeholder')}
+                        {...field}
                         className="input"
                       />
                     </FormControl>
@@ -59,12 +64,12 @@ export default function LoginForm() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{tInput('Password.name')}</FormLabel>
                     <FormControl>
                       <div className="relative">
                         <Input
                           type={visible ? 'text' : 'password'}
-                          placeholder="password" {...field}
+                          placeholder={tInput('Password.placeholder')} {...field}
                           className="input w-full relative"
                         />
                         <div
@@ -88,18 +93,18 @@ export default function LoginForm() {
                   disabled={form.formState.isLoading}
                   className="w-full"
                   type="submit"
-                >Se connecter</Button>
+                >{tButton('login')}</Button>
               </div>
             </form>
           </Form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Pas encore inscrit ?{" "}
+            {tLogin('not_registered_yet')}{" "}
             <Link
               href="/signup"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-              Rejoignez-nous
+              {tLogin('join_us')}
             </Link>
           </p>
         </div>
