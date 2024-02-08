@@ -1,12 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import CardActionLikeBtn from "./ui/CardActionLikeBtn"
 import CardActionCommentBtn from "./ui/CardActionCommentBtn"
 import CardActionShareBtn from "./ui/CardActionShareBtn"
 import CardActionBookmarkBtn from "./ui/CardActionBookmarkBtn"
+import { Tag, CardProps } from "../../types/all"
 
-export default function Card() {
+export default function Card({ post }: CardProps) {
   return (
     <>
       <article className="w-4/5 mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
@@ -29,12 +29,28 @@ export default function Card() {
             </div>
           </div>
         </div>
-        <div className="text-gray-500 mt-2">xxx Likes</div>
+        <div className="text-gray-500 mt-2">
+          {post._count.likes ? post._count.likes : "0"} likes
+        </div>
 
         <div className="flex justify-between my-5 ">
-          <div className="text-orange-500 text-base font-semibold">tags</div>
+          <div className="text-orange-500 text-base font-semibold">
+            {post.tags.map((tag, index) =>
+              tag.tagName ? <span key={index}>#{tag.tagName} </span> : null
+            )}
+          </div>
           <div className="text-base text-right">
-            <span className="font-bold">Day/Month</span>/Year
+            {post.createdAt ? (
+              <>
+                {String(new Date(post.createdAt).getDate()).padStart(2, "0")}/
+                {String(new Date(post.createdAt).getMonth() + 1).padStart(2, "0")}
+                <span className="font-bold">
+                  /{new Date(post.createdAt).getFullYear()}
+                </span>
+              </>
+            ) : (
+              "Date non disponible"
+            )}
           </div>
         </div>
         <h2 className="font-bold text-2xl">
@@ -43,14 +59,13 @@ export default function Card() {
           </a>
         </h2>
         <div className="flex flex-col justify-between mt-3 ">
-          <div className="text-base text-gray-500">
-            Description Post Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex
-            quas, aut nulla reprehenderit ducimus facilis cupiditate omnis ipsum iure
-            consequatur iste sit quos adipisci eaque beatae culpa cum repudiandae rem.
-          </div>
+          <div className="text-base text-gray-500">{post.description}</div>
           <div className="flex justify-end text-sm mt-2 text-right">
-            <p className="ml-1">#tropcool</p>
-            <p className="ml-1">#maldetete</p>
+            <p className="ml-1">
+              {post.tags.map((tag, index) =>
+                tag.tagName ? <span key={index}>#{tag.tagName} </span> : null
+              )}
+            </p>
           </div>
         </div>
         <div className="mt-3">

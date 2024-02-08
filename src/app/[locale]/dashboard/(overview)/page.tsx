@@ -1,42 +1,20 @@
 import Card from "@/components/Card"
 import CardDetail from "@/components/CardDetail"
 import Stories from "@/components/Stories"
-import { API_ENDPOINTS } from "../../../../../configs/apiEndpoints"
-
-interface Post {
-  id: number
-  title: string
-  description: string
-  image: string
-  tags: string[]
-  date: string
-  likes: number
-  comments: number
-  shares: number
-  bookmarks: number
-}
+import { getPosts } from "../../../../../actions"
 
 export default async function DashboardPage() {
-  const posts = await fetch(API_ENDPOINTS.POSTS)
-    .then((response) => response.json())
-    .then((data: Post[]) => {
-      console.log("Réponse de l'API:", data)
-    })
-    .catch((error) => {
-      console.error("Erreur lors de la récupération des posts:", error)
-    })
-
-  const login = API_ENDPOINTS.LOGIN
-  console.log("url de login", login)
+  const posts = await getPosts()
 
   return (
     <>
       <div className="w-full sm:w-1/2 flex justify-center mx-auto mb-10 ">
         <Stories />
       </div>
+
       <div>
-        {posts.map((post: Post) => (
-          <Card key={post.id} />
+        {posts.map((post) => (
+          <Card key={post.id} post={post} />
         ))}
       </div>
       <CardDetail />
