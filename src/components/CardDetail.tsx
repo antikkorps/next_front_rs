@@ -17,7 +17,7 @@ export default function CardDetail() {
             src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt=""
           />
-          <div className="content bg-white dark:bg-neutral-950 p-2 pt-8 md:p-12 pb-12 lg:max-w-lg w-full lg:absolute top-0 right-0 h-full">
+          <div className="bg-white dark:bg-neutral-950 p-2 pt-8 md:p-12 pb-12 lg:max-w-lg w-full lg:absolute top-0 right-0 h-full">
             <div className="text-base mt-4 flex justify-between">
               <div className="flex">
                 <CardActionLikeBtn />
