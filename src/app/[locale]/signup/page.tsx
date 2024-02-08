@@ -1,9 +1,18 @@
 import SignupForm from "@/components/SignupForm"
+import { pick } from "lodash";
+import { NextIntlClientProvider, useMessages } from "next-intl"
 
 export default function Signup() {
+  const messages = useMessages();
   return (
     <>
-      <SignupForm />
+      <NextIntlClientProvider
+        messages={
+          pick(messages, ["Register", "Input", "Button"])
+        }
+      >
+        <SignupForm />
+      </NextIntlClientProvider>
     </>
   )
 }

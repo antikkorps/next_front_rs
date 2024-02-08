@@ -1,0 +1,13 @@
+{
+    "Register": {
+        "title": "S'inscrire",
+        "already_have_account": "Vous avez déjà un compte ?",
+        "sign_in": "Connectez-vous",
+        "Messages" : {
+            "register_success": "Inscription réussie !",
+            "thank_you_register": "Merci de votre inscription. Nous vous avons envoyé un mail de confirmation. Celui-ci peut mettre quelques minutes à arriver.",
+            "no_link_received": "Pas de lien reçu ?",
+            "send_again": "Renvoyer"
+        }
+    }
+}

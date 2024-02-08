@@ -1,0 +1,16 @@
+{
+    "Input": {
+        "Email" : {
+            "name": "Email",
+            "placeholder": "Entrez votre mail"
+        },
+        "Password": {
+            "name": "Mot de passe",
+            "placeholder": "Entrez votre mot de passe"
+        },
+        "CPassword": {
+            "name": "Confirmer votre mot de passe",
+            "placeholder": "Confirmez votre mot de passe"
+        }
+    }
+}
