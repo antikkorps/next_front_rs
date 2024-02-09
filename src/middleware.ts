@@ -1,10 +1,12 @@
 import createMiddleware from 'next-intl/middleware';
 import {pathnames, locales, localePrefix} from './i18n/intlConfig';
 import { NextRequest, NextResponse } from 'next/server';
+import { redirect } from './i18n/navigation';
+import { checkRoles, getUser } from '../actions/get-user.server';
 
 
 
-const publicPages = ['/login', '/connexion'];
+const publicPages = ['/login', '/connexion', "/signup", "/inscription"];
 
 const intlMiddleware = createMiddleware({
     defaultLocale: 'en',
@@ -14,14 +16,23 @@ const intlMiddleware = createMiddleware({
   });
  
 const authMiddleware = async (req: NextRequest) => {
-    // All the logic to get UserData
-    const userData = "OK";
-    if (!userData) {
+    const { user, error } = await getUser();
+
+    if (!user || error) {
       return NextResponse.redirect(new URL('/login', req.nextUrl));
     }
     return intlMiddleware(req);
-
 };
+
+// middleware for loggin and signup pages.
+const mustBeGuestMiddleware = async (req: NextRequest) => {
+  const { user, error } = await getUser();
+
+  if (user && !error) {
+    return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
+  }
+  return intlMiddleware(req);
+}
 
 
 export async function middleware(req: NextRequest) {
@@ -36,7 +47,8 @@ export async function middleware(req: NextRequest) {
 
     
   if (isPublicPage) {
-    return intlMiddleware(req);
+    // return intlMiddleware(req);
+    return await(mustBeGuestMiddleware as any)(req);
   } else {
     return await(authMiddleware as any)(req);
   }

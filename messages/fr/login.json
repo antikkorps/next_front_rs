@@ -2,6 +2,10 @@
     "Login": {
         "title": "Connexion",
         "not_registered_yet": "Pas encore inscrit ?",
-        "join_us": "Rejoignez-nous"
+        "join_us": "Rejoignez-nous",
+        "toast": {
+            "success": "Bon retour parmis nous !",
+            "error": "Erreur de connexion"
+        }
     }
 }

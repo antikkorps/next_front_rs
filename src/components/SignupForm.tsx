@@ -12,6 +12,8 @@ import { signUpFormSchemaValidation } from "@/zod/auth/signUp"
 import { register } from "../../auth/auth"
 import { useState } from "react"
 import { useTranslations } from "next-intl"
+import { toast } from "sonner"
+import SingleErrorMessage from "./errors/SingleError"
 
 
 
@@ -20,7 +22,9 @@ export default function SignupForm() {
   const tInput = useTranslations('Input');
   const tButton = useTranslations('Button');
 
-  const [registered, setRegistered] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [registered, setRegistered] = useState(false);
   const [visible, setVisible] = useState(false);
   const [visibleCpass, setVisibleCpass] = useState(false);
   const form = useForm<z.infer<typeof signUpFormSchemaValidation>>({
@@ -34,19 +38,22 @@ export default function SignupForm() {
   })
 
   async function onSubmit(values: z.infer<typeof signUpFormSchemaValidation>) {
-    console.log(values)
+    setLoading(true);
     const { cpassword, ...withoutCPassword } = values;
     try {
-      const res = await register(withoutCPassword);
-      console.log({ res })
-      // sonner
-      // reset le form
-      // redirect ? login ? auth ? 
+      const response = await register(withoutCPassword);
+      if(response.error) {
+        setError(response.message)
+        toast.error(tRegister('toast.error'))
+        return;
+      }
       setRegistered(true)
+      toast.success(tRegister('toast.success'));
+      form.reset()
     } catch (error) {
-      console.log(error)
+      // console.log(error, "signupform.tsx")
     } finally {
-      // loading
+      setLoading(false);
     }
   }
 
@@ -66,7 +73,9 @@ export default function SignupForm() {
             <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
               {tRegister("title")}
             </h2>
-
+            <SingleErrorMessage
+              message={error}
+            />
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -153,7 +162,7 @@ export default function SignupForm() {
 
                 <div className="pt-6">
                   <Button
-                    disabled={form.formState.isLoading || !form.formState.isValid}
+                    disabled={form.formState.isLoading || !form.formState.isValid || loading}
                     className="w-full"
                     type="submit"
                   >{tButton('register')}</Button>

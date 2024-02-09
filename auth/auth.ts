@@ -3,29 +3,32 @@
 import { SignUpForm } from "@/zod/auth/signUp"
 import { API_ENDPOINTS } from "../configs/apiEndpoints"
 
+
 export async function login(data: SignUpForm) {
   const { email, password } = data;
   try {
-    const response = await fetch(`${API_ENDPOINTS.LOGIN}`, {
+    const response = await fetch(`http://localhost:4000/api/v1/auth/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         email,
         password,
       }),
-    })
-    const data = await response.json()
 
+    })
+
+    const data = await response.json()
     const token = data.token
 
     localStorage.setItem("jwt", token)
 
     return data
   } catch (error) {
-    console.error(error)
-    throw error
+    // console.error(error, "auth.ts")
+    // throw error
   }
 }
 
@@ -46,9 +49,8 @@ export async function logout() {
 
 export async function register(data: SignUpForm) {
   const { password, email } = data;
-  return data;
   try {
-    const response = await fetch(`${API_ENDPOINTS.REGISTER}`, {
+    const response = await fetch(`http://localhost:4000/api/v1/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +60,10 @@ export async function register(data: SignUpForm) {
         email,
       }),
     })
-    return response.json()
+
+    const data = await response.json()
+    return data;
+
   } catch (error) {
     console.error(error)
     throw error

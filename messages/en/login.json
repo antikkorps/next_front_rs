@@ -2,6 +2,10 @@
     "Login": {
         "title": "Login",
         "not_registered_yet": "Not registered yet ?",
-        "join_us": "Join us"
+        "join_us": "Join us",
+        "toast": {
+            "success": "Welcome back !",
+            "error": "An error occured."
+        }
     }
 }
