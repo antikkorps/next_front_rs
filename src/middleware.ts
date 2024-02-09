@@ -16,12 +16,16 @@ const intlMiddleware = createMiddleware({
   });
  
 const authMiddleware = async (req: NextRequest) => {
+  // if you need to deactivate the authMiddleware you can comment the uncomment code, and uncomment the commented code.
     const { user, error } = await getUser();
 
     if (!user || error) {
       return NextResponse.redirect(new URL('/login', req.nextUrl));
     }
     return intlMiddleware(req);
+
+
+    // return intlMiddleware(req);
 };
 
 // middleware for loggin and signup pages.
