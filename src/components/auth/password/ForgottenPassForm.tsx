@@ -1,15 +1,21 @@
 "use client"
-import Link from "next/link"
+
+import { Link } from "@/i18n/navigation";
 import { Waves } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export default function ForgottenPassForm() {
+  const t = useTranslations();
+  const tForgot = useTranslations("Forgotten_Password");
+  const tInput = useTranslations("Input");
+  const tButton = useTranslations("Button");
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-24 lg:py-48 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Waves className="justify-center mx-auto text-center h-32 w-32" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-            Mot de passe oublié
+            {tForgot("title")}
           </h2>
         </div>
 
@@ -64,12 +70,12 @@ export default function ForgottenPassForm() {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Retour ?{" "}
+            {tForgot('back')}{" "}
             <Link
               href="/signup"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              className="classicLink"
             >
-              Connectez-vous
+              {tForgot("signin")}
             </Link>
           </p>
         </div>

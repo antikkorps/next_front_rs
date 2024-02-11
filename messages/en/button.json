@@ -1,6 +1,6 @@
 {
-    "Button": {
-        "login": "Login",
-        "register": "Register"
-    }
+  "Button": {
+    "login": "Login",
+    "register": "Register"
+  }
 }

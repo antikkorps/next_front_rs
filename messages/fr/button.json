@@ -1,6 +1,6 @@
 {
-    "Button": {
-        "login": "Se connecter",
-        "register": "S'inscrire"
-    }
+  "Button": {
+    "login": "Se connecter",
+    "register": "S'inscrire"
+  }
 }

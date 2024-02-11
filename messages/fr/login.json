@@ -1,7 +1,20 @@
 {
-    "Login": {
-        "title": "Connexion",
-        "not_registered_yet": "Pas encore inscrit ?",
-        "join_us": "Rejoignez-nous"
+  "Login": {
+    "title": "Connexion",
+    "not_registered_yet": "Pas encore inscrit ?",
+    "join_us": "Rejoignez-nous",
+    "password_forgotten": "Mot de passe oublié ?",
+    "password_forgotten_link": "Cliquez ici",
+    "toast": {
+      "success": "Bon retour parmis nous !",
+      "error": "Erreur de connexion"
     }
+  },
+  "Logout": {
+    "logout": "Déconnexion",
+    "toast": {
+        "success": "A bientôt !",
+        "error": "Une erreur est survenue."
+    }
+}
 }

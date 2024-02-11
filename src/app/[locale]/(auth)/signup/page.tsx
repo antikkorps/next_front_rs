@@ -1,4 +1,4 @@
-import SignupForm from "@/components/SignupForm"
+import SignupForm from "@/components/auth/SignupForm"
 import { pick } from "lodash";
 import { NextIntlClientProvider, useMessages } from "next-intl"
 
