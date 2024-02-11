@@ -4,6 +4,10 @@
             "name": "Email",
             "placeholder": "Enter your email"
         },
+        "CEmail": {
+            "name": "Email confirmation",
+            "placeholder": "Confirme your email"
+        },
         "Password": {
             "name": "Password",
             "placeholder": "Enter your password"

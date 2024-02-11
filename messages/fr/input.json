@@ -4,6 +4,10 @@
             "name": "Email",
             "placeholder": "Entrez votre mail"
         },
+        "CEmail": {
+            "name": "Confirmer votre email",
+            "placeholder": "Saisissez à nouveau votre mail"
+        },
         "Password": {
             "name": "Mot de passe",
             "placeholder": "Entrez votre mot de passe"

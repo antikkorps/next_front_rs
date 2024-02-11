@@ -1,12 +1,34 @@
 import createMiddleware from 'next-intl/middleware';
 import {pathnames, locales, localePrefix} from './i18n/intlConfig';
 import { NextRequest, NextResponse } from 'next/server';
-import { redirect } from './i18n/navigation';
 import { checkRoles, getUser } from '../actions/get-user.server';
 
 
 
-const publicPages = ['/login', '/connexion', "/signup", "/inscription"];
+const publicPages = [
+  '/login', 
+  '/connexion', 
+  "/signup", 
+  "/inscription",
+  "/forgotten-password",
+  "/mot-de-passe-oublie",
+  "/internal-error",
+  "/erreur-interne",
+];
+const dynamicPublicPages = [
+  "/reset-password",
+  "/reinitialiser-mot-de-passe",
+];
+
+const isMustBeGuestPage = [
+  '/login', 
+  '/connexion', 
+  "/signup", 
+  "/inscription",
+];
+
+
+
 
 const intlMiddleware = createMiddleware({
     defaultLocale: 'en',
@@ -20,6 +42,11 @@ const authMiddleware = async (req: NextRequest) => {
     const { user, error } = await getUser();
 
     if (!user || error) {
+      if(error) {
+        if(error.code === 500) {
+          return NextResponse.redirect(new URL('/internal-error', req.nextUrl));
+        }
+      }
       return NextResponse.redirect(new URL('/login', req.nextUrl));
     }
     return intlMiddleware(req);
@@ -31,7 +58,11 @@ const authMiddleware = async (req: NextRequest) => {
 // middleware for loggin and signup pages.
 const mustBeGuestMiddleware = async (req: NextRequest) => {
   const { user, error } = await getUser();
-
+  if(error) {
+    if(error.code === 500) {
+      return NextResponse.redirect(new URL('/internal-error', req.nextUrl));
+    }
+  }
   if (user && !error) {
     return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
   }
@@ -40,19 +71,34 @@ const mustBeGuestMiddleware = async (req: NextRequest) => {
 
 
 export async function middleware(req: NextRequest) {
-    // Here the middleware part to check if Route is public or auth need
-  const publicPathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(${publicPages
-      .flatMap((p) => (p === '/' ? ['', '/'] : p))
-      .join('|')})/?$`,
+  // this was the first regex without dynamic params, I keep it in case the new one doesn't work
+  // const publicPathnameRegex = RegExp(
+  //   `^(/(${locales.join('|')}))?(${publicPages
+  //     .flatMap((p) => (p === '/' ? ['', '/'] : p))
+  //     .join('|')})/?$`,
+  //   'i'
+  // );
+
+  // this is the new regex with dynamic params
+  // First all the route that doesn't need to be authenticated
+  const notAuthPathnameRegex = RegExp(
+    `^(/(${locales.join('|')}))?(${publicPages.concat(dynamicPublicPages).join('|')})($|(/[a-zA-Z0-9_-]+)*)$`,
     'i'
   );
-  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+  // Here the route that need to be guest only, not auth
+  const publicPathnameRegex = RegExp(
+    `^(/(${locales.join('|')}))?(${isMustBeGuestPage.join('|')})($|(/[a-zA-Z0-9_-]+)*)$`,
+    'i'
+  );
+  
+  const notAuthPage = notAuthPathnameRegex.test(req.nextUrl.pathname);
+  const isPublic = publicPathnameRegex.test(req.nextUrl.pathname);
 
-    
-  if (isPublicPage) {
-    // return intlMiddleware(req);
-    return await(mustBeGuestMiddleware as any)(req);
+  if (notAuthPage) {
+    if(isPublic) {
+      return await(mustBeGuestMiddleware as any)(req);
+    }
+    return intlMiddleware(req);
   } else {
     return await(authMiddleware as any)(req);
   }

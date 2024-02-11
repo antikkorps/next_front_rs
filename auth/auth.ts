@@ -1,13 +1,21 @@
+"use server"
 //all the functions related to authentication which are calling the api methods
-
-import { SignUpForm } from "@/zod/auth/signUp"
+import { SignUpForm, SignUpWithoutConfirmPassword } from "@/zod/auth/signUp"
 import { API_ENDPOINTS } from "../configs/apiEndpoints"
+import { cookies } from "next/headers"
+
 
 
 export async function login(data: SignUpForm) {
+  const checkData = SignUpWithoutConfirmPassword.safeParse(data)
+  if(checkData.success === false) {
+    return {success: false, error: checkData.error.format()}
+  }
+
   const { email, password } = data;
+
   try {
-    const response = await fetch(`http://localhost:4000/api/v1/auth/signin`, {
+    const response = await fetch(`${API_ENDPOINTS.LOGIN}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,10 +29,17 @@ export async function login(data: SignUpForm) {
     })
 
     const data = await response.json()
-    const token = data.token
 
-    localStorage.setItem("jwt", token)
+    // if(!data.error) {
+    // // const token = data.token
+    // // localStorage.setItem("jwt", token)
+    // }
+    
 
+    cookies().set({
+        name: "inkagram_user_token",
+        value: data.access_token,
+    })
     return data
   } catch (error) {
     // console.error(error, "auth.ts")
@@ -50,7 +65,7 @@ export async function logout() {
 export async function register(data: SignUpForm) {
   const { password, email } = data;
   try {
-    const response = await fetch(`http://localhost:4000/api/v1/auth/signup`, {
+    const response = await fetch(`${API_ENDPOINTS.REGISTER}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
