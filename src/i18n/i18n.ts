@@ -21,7 +21,8 @@ export default getRequestConfig(async ({locale}) => {
       ...(await import(`../../messages/${getLocale}/coming-soon.json`)).default,
       ...(await import(`../../messages/${getLocale}/input.json`)).default,
       ...(await import(`../../messages/${getLocale}/button.json`)).default,
-      ...(await import(`../../messages/${getLocale}.json`)).default,
+      ...(await import(`../../messages/${getLocale}/navigation.json`)).default,
+      ...(await import(`../../messages/${getLocale}/forgotten_password.json`)).default,
 
     };
     return messages;

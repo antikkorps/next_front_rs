@@ -2,6 +2,19 @@
     "Login": {
         "title": "Login",
         "not_registered_yet": "Not registered yet ?",
-        "join_us": "Join us"
+        "join_us": "Join us",
+        "password_forgotten": "Forgotten password ?",
+        "password_forgotten_link": "Click here",
+        "toast": {
+            "success": "Welcome back !",
+            "error": "An error occured."
+        }
+    },
+    "Logout": {
+        "logout": "Logout",
+        "toast": {
+            "success": "Goodbye !",
+            "error": "An error occured."
+        }
     }
 }

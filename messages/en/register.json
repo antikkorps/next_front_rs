@@ -8,6 +8,10 @@
             "thank_you_register": "We have sent you a confirmation email. It may take a few minutes to arrive.",
             "no_link_received": "No link received ?",
             "send_again": "Send again"
+        },
+        "toast": {
+            "error": "An error occurred. Please try again later.",
+            "success": "Registration successfull."
         }
     }
 }

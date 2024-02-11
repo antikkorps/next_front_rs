@@ -15,9 +15,18 @@ export const pathnames = {
     fr: "/inscription",
   },
 
+  "/internal-error": {
+    en: "/internal-error",
+    fr: "/erreur-interne",
+  },
+  
   "/forgotten-password": {
     en: "/forgotten-password",
     fr: "/mot-de-passe-oublie",
+  },
+  "/reset-password/[token]": {
+    en: "/reset-password/[token]",
+    fr: "/reinitialiser-mot-de-passe/[token]",
   },
 
   "/coming-soon": {
