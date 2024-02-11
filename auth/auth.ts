@@ -3,8 +3,10 @@
 import { SignUpForm, SignUpWithoutConfirmPassword } from "@/zod/auth/signUp"
 import { API_ENDPOINTS } from "../configs/apiEndpoints"
 import { cookies } from "next/headers"
+import { getSessionCookie } from "../actions/get-user.server"
 
 
+const session_cookie_name = process.env.NEXT_PUBLIC_SESSION_COOKIE || '';
 
 export async function login(data: SignUpForm) {
   const checkData = SignUpWithoutConfirmPassword.safeParse(data)
@@ -32,12 +34,12 @@ export async function login(data: SignUpForm) {
 
     // if(!data.error) {
     // // const token = data.token
-    // // localStorage.setItem("jwt", token)
+    // // localStorage.setItem("jwt", data.access_token)
     // }
     
 
     cookies().set({
-        name: "inkagram_user_token",
+        name: session_cookie_name,
         value: data.access_token,
     })
     return data
@@ -48,18 +50,12 @@ export async function login(data: SignUpForm) {
 }
 
 export async function logout() {
-  try {
-    const response = await fetch(`${API_ENDPOINTS.LOGOUT}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-    return response.json()
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
+  const {name, value} = await getSessionCookie();
+  if(!name && !value) {
+    return {success: false, error: "No session cookie found"}
+  } 
+  cookies().delete(session_cookie_name)
+  return {success: true, message: "Logged out successfully"}
 }
 
 export async function register(data: SignUpForm) {
@@ -84,3 +80,17 @@ export async function register(data: SignUpForm) {
     throw error
   }
 }
+
+// To do
+export async function forgotPassword() {
+
+}
+
+export async function resetPassword() {
+
+}
+
+export async function resendEmailVerification() {
+
+}
+

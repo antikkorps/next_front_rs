@@ -9,5 +9,12 @@
             "success": "Welcome back !",
             "error": "An error occured."
         }
+    },
+    "Logout": {
+        "logout": "Logout",
+        "toast": {
+            "success": "Goodbye !",
+            "error": "An error occured."
+        }
     }
 }

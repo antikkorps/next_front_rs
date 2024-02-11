@@ -9,5 +9,12 @@
       "success": "Bon retour parmis nous !",
       "error": "Erreur de connexion"
     }
-  }
+  },
+  "Logout": {
+    "logout": "Déconnexion",
+    "toast": {
+        "success": "A bientôt !",
+        "error": "Une erreur est survenue."
+    }
+}
 }

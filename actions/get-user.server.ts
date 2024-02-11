@@ -3,6 +3,18 @@
 import { cookies } from "next/headers";
 import { API_ENDPOINTS } from "../configs/apiEndpoints";
 
+
+export async function getSessionCookie() {
+    const session_cookie_name = process.env.NEXT_PUBLIC_SESSION_COOKIE;
+    const cookieStore = cookies()
+
+    const session_cookie = cookieStore.get(session_cookie_name || '');
+
+    const name = session_cookie?.name;
+    const value = session_cookie?.value;
+    return {name, value};
+
+}
 export async function getUser() {
     const session_cookie_name = process.env.SESSION_COOKIE;
     const cookieStore = cookies()
