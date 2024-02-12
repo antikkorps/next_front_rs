@@ -1,3 +1,4 @@
+import ForgottenPassForm from "@/components/auth/password/ForgottenPassForm";
 import ResetPassForm from "@/components/auth/password/ResetPassForm";
 import { pick } from "lodash";
 import { NextIntlClientProvider, useMessages } from "next-intl";
@@ -9,7 +10,7 @@ export default function ForgottenPassword() {
       pick(messages, ["Forgotten_Password", "Input", "Button"])
     }
     >
-      <ResetPassForm />
+      <ForgottenPassForm />
     </NextIntlClientProvider>
   )
 }
