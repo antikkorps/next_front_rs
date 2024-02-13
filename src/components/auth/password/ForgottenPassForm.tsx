@@ -61,8 +61,8 @@ export default function ForgottenPassForm() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-xl shadow-sm bg-white/90 dark:bg-background">
           {mailSent ? (
             <ConfirmationMessage>
-              <h2>Un mail vous ait envoyé</h2>
-              <p>Cliquer sur le lien de cleui ci</p>
+              <h2 className="font-bold">{tForgot('confirmation_message.title')}</h2>
+              <p>{tForgot('confirmation_message.message')}</p>
             </ConfirmationMessage>
           ) : (
           <>
@@ -120,7 +120,7 @@ export default function ForgottenPassForm() {
                   disabled={form.formState.isLoading || loading || !form.formState.isValid}
                   className="w-full"
                   type="submit"
-                >{tButton('login')}</Button>
+                >{tButton('confirm')}</Button>
               </div>
             </form>
           </Form>

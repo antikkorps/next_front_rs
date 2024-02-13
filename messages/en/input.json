@@ -15,6 +15,14 @@
         "CPassword": {
             "name": "Password confirmation",
             "placeholder": "Confirme your password"
+        },
+        "Reset_Password": {
+            "name": "Reset Password",
+            "placeholder": "Enter your new password"
+        },
+        "Reset_CPassword": {
+            "name": "Reset Password confirmation",
+            "placeholder": "Confirme your new password"
         }
     }
 }

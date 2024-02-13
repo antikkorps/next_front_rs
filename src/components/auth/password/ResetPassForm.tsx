@@ -4,44 +4,73 @@ import SingleErrorMessage from "@/components/errors/SingleError";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link } from "@/i18n/navigation";
-import { forgotPassFormSchemaValidation } from "@/zod/auth/forgot-password";
+import { Link, useRouter } from "@/i18n/navigation";
+import { resetPasswordSchemaValidation } from "@/zod/auth/forgot-password";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Waves } from "lucide-react"
+import { Eye, EyeOff, Waves } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { resetPassword } from "../../../../auth/auth";
+import { toast } from "sonner";
 
 export default function ResetPassForm() {
+  const tReset = useTranslations("Reset_Password");
   const tForgot = useTranslations("Forgotten_Password");
   const tInput = useTranslations("Input");
   const tButton = useTranslations("Button");
 
+  const [visible, setVisible] = useState(false);
+  const [visibleCpass, setVisibleCpass] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const form = useForm<z.infer<typeof forgotPassFormSchemaValidation>>({
-    resolver: zodResolver(forgotPassFormSchemaValidation),
+  const router = useRouter();
+  const { token } = useParams()
+  const tokenValue = Array.isArray(token) ? token[0] || "" : token || "";
+
+
+  const form = useForm<z.infer<typeof resetPasswordSchemaValidation>>({
+    resolver: zodResolver(resetPasswordSchemaValidation),
     defaultValues: {
-      email: "",
-      cemail: ""
+      password: "",
+      cpassword: "",
+      token: tokenValue
     },
     mode: "onChange"
   })
 
-  async function onSubmit(values: z.infer<typeof forgotPassFormSchemaValidation>) {
+  async function onSubmit(values: z.infer<typeof resetPasswordSchemaValidation>) {
     setLoading(true);
-    console.log(values);
+    const response = await resetPassword(values);
+
+    if (response.error && response.statusCode === 403) {
+      setError(response.message)
+      toast.error(tReset('toast.error'))
+      setLoading(false);
+      return;
+    } else if (response.error && response.statusCode !== 403) {
+      toast.error(tReset('toast.error'))
+      return;
+    }
+    toast.success(tReset('toast.success'))
+    form.reset();
+    router.push('/login')
     setLoading(false);
   }
+
+
+  console.log(form.formState.errors, "form.formState.errors")
   return (
     <>
       <div className="flex min-h-screen flex-1 flex-col justify-center items-center px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-md">
-          <Waves className="justify-center mx-auto text-center h-16 w-16" />          
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-xl shadow-sm bg-white/90 dark:bg-background">
+          <Waves className="justify-center mx-auto text-center h-16 w-16" />
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-            {tForgot("title")}
+            {tReset("title")}
           </h2>
           {error && <SingleErrorMessage message={error} />}
 
@@ -49,20 +78,53 @@ export default function ResetPassForm() {
             <form onSubmit={form.handleSubmit(onSubmit)}
               className="space-y-6"
             >
+
+              <div className="hidden">
+                <FormField
+                  control={form.control}
+                  name="token"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>T</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            type="hidden"
+                            {...field}
+                            className="input w-full relative"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 control={form.control}
-                name="email"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{tInput('Email.name')}</FormLabel>
+                    <FormLabel>{tInput('Reset_Password.name')}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        autoComplete="email"
-                        placeholder={tInput('Email.placeholder')}
-                        {...field}
-                        className="input"
-                      />
+                      <div className="relative">
+                        <Input
+                          type={visible ? 'text' : 'password'}
+                          placeholder={tInput('Reset_Password.placeholder')}
+                          {...field}
+                          className="input w-full relative"
+                        />
+                        <div
+                          onClick={() => setVisible(!visible)}
+                          className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
+                          {visible ? (
+                            <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
+                          ) : (
+                            <Eye className="w-[15px] h-[15px] text-secondary-foreground" />
+                          )}
+                        </div>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -71,18 +133,28 @@ export default function ResetPassForm() {
 
               <FormField
                 control={form.control}
-                name="cemail"
+                name="cpassword"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{tInput('CEmail.name')}</FormLabel>
+                    <FormLabel>{tInput('Reset_CPassword.name')}</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        autoComplete="email"
-                        placeholder={tInput('CEmail.placeholder')}
-                        {...field}
-                        className="input"
-                      />
+                      <div className="relative">
+                        <Input
+                          type={visibleCpass ? 'text' : 'password'}
+                          placeholder={tInput('Reset_CPassword.placeholder')}
+                          {...field}
+                          className="input w-full relative"
+                        />
+                        <div
+                          onClick={() => setVisibleCpass(!visibleCpass)}
+                          className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
+                          {visibleCpass ? (
+                            <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
+                          ) : (
+                            <Eye className="w-[15px] h-[15px] text-secondary-foreground" />
+                          )}
+                        </div>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -93,7 +165,7 @@ export default function ResetPassForm() {
                   disabled={form.formState.isLoading || loading || !form.formState.isValid}
                   className="w-full"
                   type="submit"
-                >{tButton('login')}</Button>
+                >{tButton('reset_password')}</Button>
               </div>
             </form>
           </Form>

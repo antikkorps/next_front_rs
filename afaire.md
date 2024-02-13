@@ -1,4 +1,1 @@
-Je vais vérifier et ajouter la logique du logout.
-Créer un bouton pour le test.
-
-Vérifier en back le bon fonctionnement du token mdp etc
+Ui de la page pour la validation de mot de passe : confirmation / formulaire pour renvoyer.
