@@ -14,6 +14,7 @@ import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import SingleErrorMessage from "../errors/SingleError"
+import ConfirmationMessage from "./ConfirmationMessage"
 
 
 
@@ -42,7 +43,7 @@ export default function SignupForm() {
     const { cpassword, ...withoutCPassword } = values;
     try {
       const response = await register(withoutCPassword);
-      if(response.error) {
+      if (response.error) {
         setError(response.message)
         toast.error(tRegister('toast.error'))
         return;
@@ -61,12 +62,11 @@ export default function SignupForm() {
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-10 lg:px-8">
         {registered ? (
-          <div className="text-center px-4 max-w-2xl mx-auto flex flex-col items-center justify-center min-h-full">
-            <Check className="w-20 h-20 text-green-400" />
+          <ConfirmationMessage>
             <h2>{tRegister('Messages.register_success')}</h2>
             <p>{tRegister('Messages.thank_you_register')}</p>
             <p>{tRegister('Messages.no_link_received')} {" "} {tRegister('Messages.send_again')}</p>
-          </div>
+          </ConfirmationMessage>
         ) : (
           <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-md">
             <Waves className="justify-center mx-auto text-center h-16 w-16" />
@@ -90,7 +90,7 @@ export default function SignupForm() {
                         <Input
                           type="email"
                           autoComplete="email"
-                          placeholder={tInput('Email.placeholder')} 
+                          placeholder={tInput('Email.placeholder')}
                           {...field}
                           className="input"
                         />
@@ -110,7 +110,7 @@ export default function SignupForm() {
                         <div className="relative">
                           <Input
                             type={visible ? 'text' : 'password'}
-                            placeholder={tInput('Password.placeholder')} 
+                            placeholder={tInput('Password.placeholder')}
                             {...field}
                             className="input w-full relative"
                           />
@@ -140,7 +140,7 @@ export default function SignupForm() {
                         <div className="relative">
                           <Input
                             type={visibleCpass ? 'text' : 'password'}
-                            placeholder={tInput('CPassword.placeholder')} 
+                            placeholder={tInput('CPassword.placeholder')}
                             {...field}
                             className="input w-full relative"
                           />

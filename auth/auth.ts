@@ -4,6 +4,7 @@ import { SignUpForm, SignUpWithoutConfirmPassword } from "@/zod/auth/signUp"
 import { API_ENDPOINTS } from "../configs/apiEndpoints"
 import { cookies } from "next/headers"
 import { getSessionCookie } from "../actions/get-user.server"
+import { ForgotPassForm, forgotPassFormSchemaValidation } from "@/zod/auth/forgot-password"
 
 
 const session_cookie_name = process.env.NEXT_PUBLIC_SESSION_COOKIE || '';
@@ -82,8 +83,34 @@ export async function register(data: SignUpForm) {
 }
 
 // To do
-export async function forgotPassword() {
+export async function forgotPassword(data: ForgotPassForm) {
 
+  const checkData = forgotPassFormSchemaValidation.safeParse(data)
+
+  if(checkData.success === false) {
+    return {success: false, error: checkData.error.format()}
+  }
+
+  const { email } = data;
+
+  try {
+    const response = await fetch(`${API_ENDPOINTS.FORGOTTEN_PASSWORD}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    })
+
+    const data = await response.json()
+    return data;
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+  
 }
 
 export async function resetPassword() {
