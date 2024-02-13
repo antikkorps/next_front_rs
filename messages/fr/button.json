@@ -1,6 +1,8 @@
 {
   "Button": {
     "login": "Se connecter",
-    "register": "S'inscrire"
+    "register": "S'inscrire",
+    "confirm": "Confirmer",
+    "reset_password": "Changer le mot de passe"
   }
 }
