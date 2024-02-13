@@ -4,7 +4,7 @@ import { SignUpForm, SignUpWithoutConfirmPassword } from "@/zod/auth/signUp"
 import { API_ENDPOINTS } from "../configs/apiEndpoints"
 import { cookies } from "next/headers"
 import { getSessionCookie } from "../actions/get-user.server"
-import { ForgotPassForm, forgotPassFormSchemaValidation } from "@/zod/auth/forgot-password"
+import { ForgotPassForm, ResetPassForm, forgotPassFormSchemaValidation, resetPasswordSchemaValidation } from "@/zod/auth/forgot-password"
 
 
 const session_cookie_name = process.env.NEXT_PUBLIC_SESSION_COOKIE || '';
@@ -113,7 +113,32 @@ export async function forgotPassword(data: ForgotPassForm) {
   
 }
 
-export async function resetPassword() {
+export async function resetPassword(data: ResetPassForm) {
+  const checkData = resetPasswordSchemaValidation.safeParse(data)
+  if(checkData.success === false) {
+    return {success: false, error: checkData.error.format()}
+  }
+  const { password, token } = data;
+
+  try {
+    const response = await fetch(`${API_ENDPOINTS.RESET_PASSWORD}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password,
+        token
+      }),
+    })
+
+    const data = await response.json()
+    return data;
+
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 
 }
 

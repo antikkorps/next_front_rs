@@ -15,6 +15,14 @@
         "CPassword": {
             "name": "Confirmer votre mot de passe",
             "placeholder": "Confirmez votre mot de passe"
+        },
+        "Reset_Password": {
+            "name": "Nouveau mot de passe",
+            "placeholder": "Entrez votre nouveau mot de passe"
+        },
+        "Reset_CPassword": {
+            "name": "Confirmer votre nouveau mot de passe",
+            "placeholder": "Confirmez votre nouveau mot de passe"
         }
     }
 }

@@ -1,6 +1,8 @@
 {
   "Button": {
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "confirm": "Confirm",
+    "reset_password": "Reset Password"
   }
 }

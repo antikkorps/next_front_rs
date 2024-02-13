@@ -82,9 +82,9 @@ export async function middleware(req: NextRequest) {
   // this is the new regex with dynamic params
   // First all the route that doesn't need to be authenticated
   const notAuthPathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(${publicPages.concat(dynamicPublicPages).join('|')})($|(/[a-zA-Z0-9_-]+)*)$`,
+    `^(/(${locales.join('|')}))?(${publicPages.concat(dynamicPublicPages).join('|')})($|(/[a-zA-Z0-9_.-]+)*(\\?.*)?$)`,
     'i'
-  );
+);
   // Here the route that need to be guest only, not auth
   const publicPathnameRegex = RegExp(
     `^(/(${locales.join('|')}))?(${isMustBeGuestPage.join('|')})($|(/[a-zA-Z0-9_-]+)*)$`,
