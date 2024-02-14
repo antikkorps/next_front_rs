@@ -14,6 +14,8 @@ const publicPages = [
   "/mot-de-passe-oublie",
   "/internal-error",
   "/erreur-interne",
+  "/dashboard",
+  "/tableau-de-bord",
 ];
 const dynamicPublicPages = [
   "/reset-password",

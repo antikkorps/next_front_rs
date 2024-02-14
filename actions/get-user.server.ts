@@ -2,32 +2,18 @@
 
 import { cookies } from "next/headers";
 import { API_ENDPOINTS } from "../configs/apiEndpoints";
+import { getSessionCookie } from "@/lib/auth-header";
 
 
-export async function getSessionCookie() {
-    const session_cookie_name = process.env.NEXT_PUBLIC_SESSION_COOKIE;
-    const cookieStore = cookies()
-
-    const session_cookie = cookieStore.get(session_cookie_name || '');
-
-    const name = session_cookie?.name;
-    const value = session_cookie?.value;
-    return {name, value};
-
-}
 export async function getUser() {
-    const session_cookie_name = process.env.SESSION_COOKIE;
-    const cookieStore = cookies()
-
-    const session_cookie = cookieStore.get(session_cookie_name || '')
-    
+    const { name, value} = await getSessionCookie();
     let user = null;
     try {
         const response = await fetch(`${API_ENDPOINTS.USER_PROFILE}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Cookie": `${session_cookie?.name}=${session_cookie?.value}`
+                "Cookie": `${name}=${value}`
             },
             credentials: "include",
 

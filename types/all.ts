@@ -1,3 +1,5 @@
+
+
 export interface Tag {
   id: number
   postId: number
@@ -12,7 +14,7 @@ export interface CardProps {
     image: string
     tags: Tag[]
     date: string
-    likes: number
+    likes: any[]
     comments: number
     shares: number
     bookmarks: number
