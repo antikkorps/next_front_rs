@@ -3,8 +3,9 @@
 import { SignUpForm, SignUpWithoutConfirmPassword } from "@/zod/auth/signUp"
 import { API_ENDPOINTS } from "../configs/apiEndpoints"
 import { cookies } from "next/headers"
-import { getSessionCookie } from "../actions/get-user.server"
+
 import { ForgotPassForm, ResetPassForm, forgotPassFormSchemaValidation, resetPasswordSchemaValidation } from "@/zod/auth/forgot-password"
+import { getSessionCookie } from "@/lib/auth-header"
 
 
 const session_cookie_name = process.env.NEXT_PUBLIC_SESSION_COOKIE || '';

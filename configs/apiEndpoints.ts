@@ -49,7 +49,7 @@ export const API_ENDPOINTS = {
   LIKES_BY_ID: `${BASE_URL}/likes/`,
   LIKES_UPDATE: `${BASE_URL}/likes/update`,
   LIKES_DELETE: `${BASE_URL}/likes/delete`,
-  LIKES_CREATE: `${BASE_URL}/likes/create`,
+  LIKES_CREATE: `${BASE_URL}/like`,
   LIKES_BY_USER_ID: `${BASE_URL}/likes/user/`,
   LIKES_BY_MEDIA_ID: `${BASE_URL}/likes/media/`,
   LIKES_BY_SALON_ID: `${BASE_URL}/likes/salon/`,
