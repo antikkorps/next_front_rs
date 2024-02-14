@@ -68,7 +68,7 @@ export default function SignupForm() {
             <p>{tRegister('Messages.no_link_received')} {" "} {tRegister('Messages.send_again')}</p>
           </ConfirmationMessage>
         ) : (
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-md">
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-xl shadow-sm bg-white/90 dark:bg-background">
             <Waves className="justify-center mx-auto text-center h-16 w-16" />
             <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
               {tRegister("title")}

@@ -5,8 +5,22 @@ import CardActionCommentBtn from "./ui/CardActionCommentBtn"
 import CardActionShareBtn from "./ui/CardActionShareBtn"
 import CardActionBookmarkBtn from "./ui/CardActionBookmarkBtn"
 import { Tag, CardProps } from "../../types/all"
+import { getUser } from "../../actions/get-user.server"
+import { PostSchemaWithRelation } from "@/zod/post/post"
 
-export default function Card({ post }: CardProps) {
+interface Props {
+  post: PostSchemaWithRelation
+}
+const Card = async(props: Props) => {
+  const { user, error } = await getUser();
+  
+  let userId = null
+  if(user) {
+    userId = user.id
+  }
+
+  const {post} = props;
+
   return (
     <>
       <article className="w-4/5 mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
@@ -20,17 +34,20 @@ export default function Card({ post }: CardProps) {
           />
         </div>
         <div className="text-base mt-4 flex justify-between relative">
-          <div className="flex">
-            <CardActionLikeBtn />
+
+          <div className="flex gap-2">
+            <CardActionLikeBtn
+              itemType="POST"
+              item={post}
+              userId={userId}
+            />
             <CardActionCommentBtn />
             <CardActionShareBtn />
-            <div className="absolute right-0">
+
+          </div>
+          <div className="">
               <CardActionBookmarkBtn />
             </div>
-          </div>
-        </div>
-        <div className="text-gray-500 mt-2">
-          {post._count.likes ? post._count.likes : "0"} likes
         </div>
 
         <div className="flex justify-between my-5 ">
@@ -96,3 +113,5 @@ export default function Card({ post }: CardProps) {
     </>
   )
 }
+
+export default Card;

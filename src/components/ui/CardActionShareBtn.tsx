@@ -7,7 +7,7 @@ export default function CardActionShareBtn() {
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
-        className="w-6 h-6 mr-2 text-gray-400"
+        className="w-6 h-6 text-gray-400"
       >
         <path
           strokeLinecap="round"
