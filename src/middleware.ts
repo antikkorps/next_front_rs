@@ -39,6 +39,7 @@ const intlMiddleware = createMiddleware({
     localePrefix
   });
  
+  
 const authMiddleware = async (req: NextRequest) => {
   // if you need to deactivate the authMiddleware you can comment the uncomment code, and uncomment the commented code.
     const { user, error } = await getUser();

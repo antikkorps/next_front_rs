@@ -62,8 +62,6 @@ export default function ResetPassForm() {
     setLoading(false);
   }
 
-
-  console.log(form.formState.errors, "form.formState.errors")
   return (
     <>
       <div className="flex min-h-screen flex-1 flex-col justify-center items-center px-6 lg:px-8">

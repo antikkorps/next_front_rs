@@ -15,10 +15,18 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import SingleErrorMessage from "../errors/SingleError"
 import ConfirmationMessage from "./ConfirmationMessage"
+import { cn } from "@/lib/utils"
 
 
+interface SignUpFormProps {
+  inModal?: boolean;
+  setFormConfirm?: (value: boolean) => void;
+  formConfirm?: boolean;
+}
 
-export default function SignupForm() {
+export default function SignupForm(props: SignUpFormProps) {
+  const { inModal = false, formConfirm, setFormConfirm } = props;
+
   const tRegister = useTranslations('Register');
   const tInput = useTranslations('Input');
   const tButton = useTranslations('Button');
@@ -60,128 +68,129 @@ export default function SignupForm() {
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-10 lg:px-8">
-        {registered ? (
-          <ConfirmationMessage>
-            <h2>{tRegister('Messages.register_success')}</h2>
-            <p>{tRegister('Messages.thank_you_register')}</p>
-            <p>{tRegister('Messages.no_link_received')} {" "} {tRegister('Messages.send_again')}</p>
-          </ConfirmationMessage>
-        ) : (
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-xl shadow-sm bg-white/90 dark:bg-background">
-            <Waves className="justify-center mx-auto text-center h-16 w-16" />
-            <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-              {tRegister("title")}
-            </h2>
-            <SingleErrorMessage
-              message={error}
-            />
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{tInput('Email.name')}</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          autoComplete="email"
-                          placeholder={tInput('Email.placeholder')}
-                          {...field}
-                          className="input"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{tInput('Password.name')}</FormLabel>
-                      <FormControl>
-                        <div className="relative">
+      <div className={cn('flex flex-1 flex-col justify-center items-center ', inModal ? 'py-4' : 'min-h-screen px-6 lg:px-8')}>
+        <div className={cn('border px-10 py-4 rounded-xl shadow-sm ', inModal ? "bg-secondary w-full" : "bg-white/90 dark:bg-background sm:mx-auto sm:w-full sm:max-w-sm ")}>
+          {registered ? (
+            <ConfirmationMessage>
+              <h2>{tRegister('Messages.register_success')}</h2>
+              <p>{tRegister('Messages.thank_you_register')}</p>
+              <p>{tRegister('Messages.no_link_received')} {" "} {tRegister('Messages.send_again')}</p>
+            </ConfirmationMessage>
+          ) : (
+            <>
+              <Waves className="justify-center mx-auto text-center h-16 w-16" />
+              <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
+                {tRegister("title")}
+              </h2>
+              <SingleErrorMessage
+                message={error}
+              />
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tInput('Email.name')}</FormLabel>
+                        <FormControl>
                           <Input
-                            type={visible ? 'text' : 'password'}
-                            placeholder={tInput('Password.placeholder')}
+                            type="email"
+                            autoComplete="email"
+                            placeholder={tInput('Email.placeholder')}
                             {...field}
-                            className="input w-full relative"
+                            className={cn(inModal ? '' : "input")}
                           />
-                          <div
-                            onClick={() => setVisible(!visible)}
-                            className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
-                            {visible ? (
-                              <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
-                            ) : (
-                              <Eye className="w-[15px] h-[15px] text-secondary-foreground" />
-                            )}
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tInput('Password.name')}</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              type={visible ? 'text' : 'password'}
+                              placeholder={tInput('Password.placeholder')}
+                              {...field}
+                              className={cn(inModal ? '' : "input w-full relative")}
+                            />
+                            <div
+                              onClick={() => setVisible(!visible)}
+                              className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
+                              {visible ? (
+                                <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
+                              ) : (
+                                <Eye className="w-[15px] h-[15px] text-secondary-foreground" />
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name="cpassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{tInput('CPassword.name')}</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Input
-                            type={visibleCpass ? 'text' : 'password'}
-                            placeholder={tInput('CPassword.placeholder')}
-                            {...field}
-                            className="input w-full relative"
-                          />
-                          <div
-                            onClick={() => setVisibleCpass(!visibleCpass)}
-                            className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
-                            {visibleCpass ? (
-                              <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
-                            ) : (
-                              <Eye className="w-[15px] h-[15px] text-secondary-foreground" />
-                            )}
+                  <FormField
+                    control={form.control}
+                    name="cpassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tInput('CPassword.name')}</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Input
+                              type={visibleCpass ? 'text' : 'password'}
+                              placeholder={tInput('CPassword.placeholder')}
+                              {...field}
+                              className={cn(inModal ? '' : "input w-full relative")}
+                            />
+                            <div
+                              onClick={() => setVisibleCpass(!visibleCpass)}
+                              className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
+                              {visibleCpass ? (
+                                <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
+                              ) : (
+                                <Eye className="w-[15px] h-[15px] text-secondary-foreground" />
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                <div className="pt-6">
-                  <Button
-                    disabled={form.formState.isLoading || !form.formState.isValid || loading}
-                    className="w-full"
-                    type="submit"
-                  >{tButton('register')}</Button>
-                </div>
-              </form>
-            </Form>
+                  <div className={cn(inModal ? "pt-3" : "pt-6")}>
+                    <Button
+                      disabled={form.formState.isLoading || !form.formState.isValid || loading}
+                      className="w-full"
+                      type="submit"
+                    >{tButton('register')}</Button>
+                  </div>
+                </form>
+              </Form>
 
-            <p className="mt-10 text-center text-sm text-gray-500">
-              {tRegister('already_have_account')}{" "}
-              <Link
-                href="/login"
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-              >
-                {tRegister('sign_in')}
-              </Link>
-            </p>
-          </div>
-        )}
-
+              <p className="mt-10 text-center text-sm text-gray-500">
+                {tRegister('already_have_account')}{" "}
+                <Link
+                  href="/login"
+                  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                >
+                  {tRegister('sign_in')}
+                </Link>
+              </p>
+            </>
+          )}
+        </div>
       </div>
     </>
   )
