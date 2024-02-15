@@ -39,8 +39,6 @@ export default function ForgottenPassForm() {
     setLoading(true);
     
     const response = await forgotPassword(values);
-    
-    console.log(response, "response")
     if (response.error && response.statusCode === 403) {
       setError(response.message)
       toast.error(tForgot('toast.error'))

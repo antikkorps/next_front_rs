@@ -6,11 +6,13 @@ import { cookies } from "next/headers"
 
 import { ForgotPassForm, ResetPassForm, forgotPassFormSchemaValidation, resetPasswordSchemaValidation } from "@/zod/auth/forgot-password"
 import { getSessionCookie } from "@/lib/auth-header"
+import { revalidatePath } from "next/cache"
 
 
 const session_cookie_name = process.env.NEXT_PUBLIC_SESSION_COOKIE || '';
 
 export async function login(data: SignUpForm) {
+
   const checkData = SignUpWithoutConfirmPassword.safeParse(data)
   if(checkData.success === false) {
     return {success: false, error: checkData.error.format()}
@@ -44,6 +46,7 @@ export async function login(data: SignUpForm) {
         name: session_cookie_name,
         value: data.access_token,
     })
+    revalidatePath("/dashboard")
     return data
   } catch (error) {
     // console.error(error, "auth.ts")

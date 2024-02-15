@@ -1,7 +1,7 @@
 "use client"
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
-import { startTransition, useEffect, useOptimistic } from "react"
+import { startTransition, useEffect, useOptimistic, useState } from "react"
 import { z } from "zod";
 import ActionIcon from "../ActionIcon";
 import { like } from "../../../actions/post-like.server";
@@ -10,6 +10,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LikeWithoutRelation, StoreLikeSchema } from "@/zod/likes/like";
 import { toast } from "sonner";
+import { AuthModal } from "../modals/auth/AuthModal";
+
 
 
 interface CardActionLikeBtnProps {
@@ -17,8 +19,13 @@ interface CardActionLikeBtnProps {
   item: any;
   userId: number;
 }
-export default function CardActionLikeBtn(props: CardActionLikeBtnProps) {
+const CardActionLikeBtn = (props: CardActionLikeBtnProps) => {
+
   const { itemType, item, userId } = props;
+  
+
+  const [openModale, setOpenModale] = useState(false);
+
   const toastNoAuth = () => {
     return toast.error('Vous devez être connecté pour aimer un post')
   }
@@ -33,6 +40,14 @@ export default function CardActionLikeBtn(props: CardActionLikeBtnProps) {
         : [...state, newLike]
   )
 
+  // Need this useEffect to reset the form when the userId changes...after the login modale
+  useEffect(() => {
+    form.reset({
+      ...form.getValues(),
+      userId: userId,
+    });
+  }, [userId]);
+
   const form = useForm<z.infer<typeof StoreLikeSchema>>({
     resolver: zodResolver(StoreLikeSchema),
     defaultValues: {
@@ -41,8 +56,10 @@ export default function CardActionLikeBtn(props: CardActionLikeBtnProps) {
       likeType: itemType
     }
   })
+  
   useEffect(() => {
     if(form.formState.errors.userId && form.formState.errors.userId.message === "Expected number, received null"){
+      setOpenModale(true)
       toastNoAuth()
       return;
     }
@@ -68,8 +85,14 @@ export default function CardActionLikeBtn(props: CardActionLikeBtnProps) {
       return;
     }
   }
+
   return (
-    <div className="flex flex-col gap-0">
+    <>
+    <AuthModal 
+      isOpen={openModale}
+      onClose={() => setOpenModale(false)} 
+    />
+    <div className="flex flex-col gap-0">      
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -83,7 +106,7 @@ export default function CardActionLikeBtn(props: CardActionLikeBtnProps) {
           </ActionIcon>
         </form>
       </Form>
- 
+    
       {optimisticLikes.length > 0 && (
         <small>
           {optimisticLikes.length}{" "}
@@ -91,5 +114,8 @@ export default function CardActionLikeBtn(props: CardActionLikeBtnProps) {
         </small>
       )}
     </div>
+    </>
   )
 }
+
+export default CardActionLikeBtn;
