@@ -1,41 +1,111 @@
 "use client"
-import { useState } from "react"
+import { startTransition, useEffect, useOptimistic, useState } from "react"
+import { Form } from "./form"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { CreateBookmarkSchema } from "@/zod/bookmarks/bookmark"
+import { z } from "zod"
+import ActionIcon from "../ActionIcon"
+import { Bookmark } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { bookmark } from "../../../actions/bookmarks/post-bookmark"
+import { AuthModal } from "../modals/auth/AuthModal"
 
-export default function CardActionBookmarkBtn() {
-  const [isBookmarked, setIsBookmarked] = useState(false)
 
-  const handleBookmark = () => {
-    setIsBookmarked(!isBookmarked)
+interface UserPostBookmarks {
+  bookmarks: number[] | [];
+}
+
+interface CardActionBookmarkBtnProps {
+  post: any;
+  userId: number;
+
+  // userBookmarksLikes: UserPostLikes & UserPostBookmarks;
+  userBookmarks: number[];
+}
+
+
+export default function CardActionBookmarkBtn(props: CardActionBookmarkBtnProps) {
+  const { post, userId, userBookmarks = [] } = props
+
+  const [openModale, setOpenModale] = useState(false);
+
+  
+  const predicate = (bookmark: UserPostBookmarks) => bookmark === post.id
+  const [optimisticBookmarks, addOptimisticBookmark] = useOptimistic<UserPostBookmarks[]>(
+    userBookmarks,
+    // @ts-ignore
+    (state: UserPostBookmarks[], newBookmark: UserPostBookmarks) =>
+      state.some(predicate)
+        ? state.filter((bookmark) => bookmark !== post.id)
+        : [...state, newBookmark]
+  )
+
+  useEffect(() => {
+    form.reset({
+      ...form.getValues(),
+      userId: userId
+    });
+  }, [userId]);
+
+  const form = useForm<z.infer<typeof CreateBookmarkSchema>>({
+    resolver: zodResolver(CreateBookmarkSchema),
+    defaultValues: {
+      postId: post.id,
+      userId: userId,
+    }
+  })
+ 
+  useEffect(() => {
+    if (form.formState.errors.userId && form.formState.errors.userId.message === "Expected number, received null") {
+      setOpenModale(true)
+      return;
+    }
+  }, [form.formState.errors])
+
+  // useEffect(() => {
+  //   if (userBookmarksLikes && Array.isArray(userBookmarksLikes.bookmarks)) {
+  //     startTransition(() => {
+  //       addOptimisticBookmark(bookmark)
+  //     });
+  //   }
+  // }, [userBookmarksLikes]);
+
+  const onSubmit = async (data: z.infer<typeof CreateBookmarkSchema>) => {
+    startTransition(() => {
+      addOptimisticBookmark(post.id)
+    });
+    const response = await bookmark({
+      postId: post.id,
+      userId: userId
+    })
+    if (response.error && response.error.code === 403) {
+      return;
+    } else if (response.error && response.error.code !== 403) {
+      return;
+    }
   }
 
   return (
     <>
-      <div onClick={handleBookmark}>
-        {isBookmarked ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="white"
-            viewBox="0 0 24 24"
-            className="w-6 h-6 mr-2"
+      <AuthModal
+        isOpen={openModale}
+        onClose={() => setOpenModale(false)}
+      />
+      <div className="flex flex-col gap-0">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
           >
-            <path d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-          </svg>
-        ) : (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="w-6 h-6 mr-2 text-gray-400"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-            />
-          </svg>
-        )}
+            <ActionIcon className="h-7 w-7
+        hover:bg-transparent !transition-none
+        ">
+              <Bookmark
+                className={cn('h-6 w-6 transition-none text-gray-400', optimisticBookmarks.some(predicate) ? "text-gray-100 fill-gray-100" : "")}
+              />
+            </ActionIcon>
+          </form>
+        </Form>
       </div>
     </>
   )

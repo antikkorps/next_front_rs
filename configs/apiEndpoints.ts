@@ -15,7 +15,7 @@ export const API_ENDPOINTS = {
   USERS: `${BASE_URL}/users/all`,
   USER_PROFILE: `${BASE_URL}/users/me`,
   USER_BY_ID: `${BASE_URL}/users/`,
-
+  USER_POST_LIKE_AND_BOOKMARK: `${BASE_URL}/users/like-bookmarks-posts`, // + userId
   //ROLES RELATED
   ROLES: `${BASE_URL}/roles/all`,
   ROLE_BY_ID: `${BASE_URL}/roles/`,
@@ -60,7 +60,7 @@ export const API_ENDPOINTS = {
   BOOKMARKS_BY_ID: `${BASE_URL}/bookmarks/`,
   BOOKMARKS_UPDATE: `${BASE_URL}/bookmarks/update`,
   BOOKMARKS_DELETE: `${BASE_URL}/bookmarks/delete`,
-  BOOKMARKS_CREATE: `${BASE_URL}/bookmarks/create`,
+  BOOKMARKS_CREATE: `${BASE_URL}/post/bookmarked`, // + postId
   BOOKMARKS_BY_USER_ID: `${BASE_URL}/bookmarks/user/`,
   BOOKMARKS_BY_MEDIA_ID: `${BASE_URL}/bookmarks/media/`,
   BOOKMARKS_BY_SALON_ID: `${BASE_URL}/bookmarks/salon/`,

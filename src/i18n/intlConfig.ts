@@ -14,11 +14,6 @@ export const pathnames = {
     en: "/signup",
     fr: "/inscription",
   },
-
-  "/internal-error": {
-    en: "/internal-error",
-    fr: "/erreur-interne",
-  },
   
   "/forgotten-password": {
     en: "/forgotten-password",
@@ -27,6 +22,23 @@ export const pathnames = {
   "/reset-password/[token]": {
     en: "/reset-password/[token]",
     fr: "/reinitialiser-mot-de-passe/[token]",
+  },
+
+  "/mail-confirmation/success": {
+    en: "/mail-confirmation/success",
+    fr: "/confirmation-mail/succes",
+  },
+
+  "/mail-confirmation/resend": {
+    en: "/mail-confirmation/resend",
+    fr: "/confirmation-mail/renvoyer",
+  },
+
+  
+
+  "/internal-error": {
+    en: "/internal-error",
+    fr: "/erreur-interne",
   },
 
   "/coming-soon": {

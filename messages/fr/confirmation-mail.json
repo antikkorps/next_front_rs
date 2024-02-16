@@ -1,0 +1,10 @@
+{
+    "Resend_Confirmation_Mail" : {
+        "title": "Renvoyer le mail de confirmation",
+        "back": "Retour ?",
+        "confirmation_message": {
+            "title": "Confirmation du mail",
+            "message": "Un mail de confirmation a été envoyé. Merci de cliquer sur le lien reçu. Si vous n'avez pas reçu de mail, veuillez vérifier votre dossier de courrier indésirable ou effectuer un nouveau renvoi de mail."
+        }
+    }
+}
