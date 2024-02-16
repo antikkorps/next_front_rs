@@ -7,6 +7,9 @@ import CardActionBookmarkBtn from "./ui/CardActionBookmarkBtn"
 import { Tag, CardProps } from "../../types/all"
 import { getUser } from "../../actions/get-user.server"
 import { PostSchemaWithRelation } from "@/zod/post/post"
+import { getMessages, getTranslations } from "next-intl/server"
+import { NextIntlClientProvider } from "next-intl"
+import { pick } from "lodash"
 
 interface Props {
   post: PostSchemaWithRelation
@@ -18,9 +21,10 @@ const Card = async(props: Props) => {
   if(user) {
     userId = user.id
   }
-
   const {post} = props;
 
+
+  const messages = await getMessages()
   return (
     <>
       <article className="w-4/5 mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
@@ -36,11 +40,15 @@ const Card = async(props: Props) => {
         <div className="text-base mt-4 flex justify-between relative">
 
           <div className="flex gap-2">
+            <NextIntlClientProvider
+            messages={pick(messages, ["Register", "Login", "Input", "Button"])}
+            >
             <CardActionLikeBtn
               itemType="POST"
               item={post}
               userId={userId}
             />
+            </NextIntlClientProvider>
             <CardActionCommentBtn />
             <CardActionShareBtn />
 

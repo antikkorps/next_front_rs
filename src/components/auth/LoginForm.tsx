@@ -14,9 +14,16 @@ import { login } from "../../../auth/auth"
 import { Link, useRouter } from "@/i18n/navigation"
 import SingleErrorMessage from "../errors/SingleError"
 import { toast } from "sonner"
-// import { login } from "../../../auth/get-login"
+import { cn } from "@/lib/utils"
+interface LoginFormProps {
+  inModal?: boolean;
+  setFormConfirm?: (value: boolean) => void;
+  formConfirm?: boolean;
+}
+export default function LoginForm(props: LoginFormProps) {
+  const { inModal = false, formConfirm, setFormConfirm } = props;
 
-export default function LoginForm() {
+
   const tLogin = useTranslations('Login');
   const tInput = useTranslations('Input');
   const tButton = useTranslations('Button');
@@ -25,6 +32,9 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  
+
+ 
   const form = useForm<z.infer<typeof SignUpWithoutConfirmPassword>>({
     resolver: zodResolver(SignUpWithoutConfirmPassword),
     defaultValues: {
@@ -33,34 +43,38 @@ export default function LoginForm() {
     }
   })
 
- 
+
   async function onSubmit(values: z.infer<typeof SignUpWithoutConfirmPassword>) {
     setLoading(true);
     const response = await login(values);
-   
-    if(response.error && response.statusCode === 403) {
+
+    if (response.error && response.statusCode === 403) {
       setError(response.message)
       toast.error(tLogin('toast.error'))
       setLoading(false);
       return;
-    } else if(response.error && response.statusCode !== 403) {
+    } else if (response.error && response.statusCode !== 403) {
       toast.error(tLogin('toast.error'))
       return;
     }
-
-    router.push('/dashboard');
+    if(inModal) {
+     
+      if (setFormConfirm) {
+        setFormConfirm(!formConfirm)
+      }
+      router.refresh()
+    } else {
+      router.push('/dashboard');
+    }
     toast.success(tLogin('toast.success'))
     form.reset();
     setLoading(false);
   }
 
-  
- 
-
   return (
     <>
-      <div className="flex min-h-screen flex-1 flex-col justify-center px-6 items-center lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-xl shadow-sm bg-white/90 dark:bg-background">
+      <div className={cn('flex flex-1 flex-col justify-center items-center ', inModal ? 'py-4' : 'min-h-screen px-6 lg:px-8')}>
+        <div className={cn('border px-10 py-4 rounded-xl shadow-sm ', inModal ? "bg-secondary w-full" : "bg-white/90 dark:bg-background sm:mx-auto sm:w-full sm:max-w-sm ")}>
           <Waves className="justify-center mx-auto text-center h-16 w-16" />
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
             {tLogin('title')}
@@ -70,7 +84,7 @@ export default function LoginForm() {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-6">
+              className="space-y-6 mb-5">
               <FormField
                 control={form.control}
                 name="email"
@@ -83,7 +97,7 @@ export default function LoginForm() {
                         autoComplete="email"
                         placeholder={tInput('Email.placeholder')}
                         {...field}
-                        className="input"
+                        className={cn(inModal ? '' : "input")}
                       />
                     </FormControl>
                     <FormMessage />
@@ -102,11 +116,11 @@ export default function LoginForm() {
                         <Input
                           type={visible ? 'text' : 'password'}
                           placeholder={tInput('Password.placeholder')} {...field}
-                          className="input w-full relative"
+                          className={cn(inModal ? '' : "input w-full relative")}
                         />
                         <div
-                        onClick={()=>setVisible(!visible)}
-                        className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
+                          onClick={() => setVisible(!visible)}
+                          className="cursor-pointer absolute top-1/2 -translate-y-1/2 right-1.5 ">
                           {visible ? (
                             <EyeOff className="w-[15px] h-[15px] text-secondary-foreground" />
                           ) : (
@@ -115,12 +129,12 @@ export default function LoginForm() {
                         </div>
                       </div>
                     </FormControl>
-                    <FormDescription className="text-sm text-muted-foreground">
-                    {tLogin('password_forgotten')} {" "} 
-                      <Link 
-                      className="classicLink"
-                      href="/forgotten-password">
-                      {tLogin('password_forgotten_link')}
+                    <FormDescription className="text-sm text-muted-foreground pt-3">
+                      {tLogin('password_forgotten')} {" "}
+                      <Link
+                        className="classicLink"
+                        href="/forgotten-password">
+                        {tLogin('password_forgotten_link')}
                       </Link>
                     </FormDescription>
                     <FormMessage />
@@ -128,7 +142,7 @@ export default function LoginForm() {
                 )}
               />
 
-              <div className="pt-6">
+              <div className={cn(inModal ? "pt-3" : "pt-6")}>
                 <Button
                   disabled={form.formState.isLoading || loading}
                   className="w-full"
@@ -137,15 +151,17 @@ export default function LoginForm() {
               </div>
             </form>
           </Form>
-          <p className="mt-10 text-center text-sm text-muted-foreground">
-            {tLogin('not_registered_yet')}{" "}
-            <Link
-              href="/signup"
-              className="classicLink"
-            >
-              {tLogin('join_us')}
-            </Link>
-          </p>
+          {!inModal && (
+            <p className="text-center text-sm text-muted-foreground">
+              {tLogin('not_registered_yet')}{" "}
+              <Link
+                href="/signup"
+                className="classicLink"
+              >
+                {tLogin('join_us')}
+              </Link>
+            </p>
+          )}
         </div>
       </div>
     </>
