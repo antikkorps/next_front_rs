@@ -21,4 +21,9 @@ import { z } from "zod";
     // This schema are usefull to both signIn and signUp forms.
     export const SignUpWithoutConfirmPassword = signUpFormSchema.omit({cpassword: true})
     export type SignUpForm = z.infer<typeof SignUpWithoutConfirmPassword>;
-  
+    
+
+    // resend mail confirmation
+
+    export const resendMailSchema = signUpFormSchema.omit({password: true, cpassword: true});
+    export type ResendMailForm = z.infer<typeof resendMailSchema>;

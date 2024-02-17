@@ -15,7 +15,6 @@ import { z } from "zod";
 import { forgotPassword } from "../../../../auth/auth";
 import { toast } from "sonner";
 import ConfirmationMessage from "../ConfirmationMessage";
-import { set } from "lodash";
 
 export default function ForgottenPassForm() {
   const tForgot = useTranslations("Forgotten_Password");

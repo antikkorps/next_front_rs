@@ -3,6 +3,7 @@
     "login": "Login",
     "register": "Register",
     "confirm": "Confirm",
-    "reset_password": "Reset Password"
+    "reset_password": "Reset Password",
+    "resend": "Resend mail"
   }
 }
