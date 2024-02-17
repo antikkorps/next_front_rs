@@ -10,18 +10,22 @@ import { PostSchemaWithRelation } from "@/zod/post/post"
 import { getMessages, getTranslations } from "next-intl/server"
 import { NextIntlClientProvider } from "next-intl"
 import { pick } from "lodash"
+import { getUserLikesBookmarksPosts } from "../../actions/user/get-posts-likes-bookmarks"
 
 interface Props {
   post: PostSchemaWithRelation
 }
-const Card = async(props: Props) => {
+const Card = async (props: Props) => {
   const { user, error } = await getUser();
-  
+
   let userId = null
-  if(user) {
+  if (user) {
     userId = user.id
   }
-  const {post} = props;
+
+  const { userBookmarksLikes } = await getUserLikesBookmarksPosts(userId)
+
+  const { post } = props;
 
 
   const messages = await getMessages()
@@ -37,26 +41,33 @@ const Card = async(props: Props) => {
             alt=""
           />
         </div>
-        <div className="text-base mt-4 flex justify-between relative">
 
-          <div className="flex gap-2">
-            <NextIntlClientProvider
-            messages={pick(messages, ["Register", "Login", "Input", "Button"])}
-            >
-            <CardActionLikeBtn
-              itemType="POST"
-              item={post}
-              userId={userId}
-            />
-            </NextIntlClientProvider>
-            <CardActionCommentBtn />
-            <CardActionShareBtn />
+        <NextIntlClientProvider
+          messages={pick(messages, ["Register", "Login", "Input", "Button"])}
+        >
+          <div className="text-base mt-4 flex justify-between relative pr-2">
+            <div className="flex gap-2">
 
-          </div>
-          <div className="">
-              <CardActionBookmarkBtn />
+              <CardActionLikeBtn
+                itemType="POST"
+                item={post}
+                userId={userId}
+              />
+
+              <CardActionCommentBtn />
+              <CardActionShareBtn />
+
             </div>
-        </div>
+            <div className="">
+              <CardActionBookmarkBtn
+                key={userId + post.id}
+                userId={userId}
+                post={post}
+                userBookmarks={userBookmarksLikes.bookmarks}
+              />
+            </div>
+          </div>
+        </NextIntlClientProvider>
 
         <div className="flex justify-between my-5 ">
           <div className="text-orange-500 text-base font-semibold">

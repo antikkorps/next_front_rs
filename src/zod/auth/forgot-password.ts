@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { signUpFormSchemaValidation } from "./signUp";
 
 const forgotPassSchema = z.object({
     email: z.string().email(),

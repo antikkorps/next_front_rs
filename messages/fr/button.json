@@ -3,6 +3,7 @@
     "login": "Se connecter",
     "register": "S'inscrire",
     "confirm": "Confirmer",
-    "reset_password": "Changer le mot de passe"
+    "reset_password": "Changer le mot de passe",
+    "resend": "Renvoyer un mail"
   }
 }

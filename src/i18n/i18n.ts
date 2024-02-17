@@ -23,7 +23,7 @@ export default getRequestConfig(async ({locale}) => {
       ...(await import(`../../messages/${getLocale}/button.json`)).default,
       ...(await import(`../../messages/${getLocale}/navigation.json`)).default,
       ...(await import(`../../messages/${getLocale}/forgotten_password.json`)).default,
-
+      ...(await import(`../../messages/${getLocale}/confirmation-mail.json`)).default,
     };
     return messages;
   }

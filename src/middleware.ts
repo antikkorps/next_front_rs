@@ -16,6 +16,10 @@ const publicPages = [
   "/erreur-interne",
   "/dashboard",
   "/tableau-de-bord",
+  "/mail-confirmation/success",
+  "/confirmation-mail/succes",
+  "/mail-confirmation/resend",
+  "/confirmation-mail/renvoyer"
 ];
 const dynamicPublicPages = [
   "/reset-password",
