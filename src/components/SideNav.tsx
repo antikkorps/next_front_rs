@@ -5,6 +5,7 @@ import MoreDropdown from "./MoreDropdown"
 import { NextIntlClientProvider, useMessages } from "next-intl"
 import LogoutButton from "./auth/LogoutButton"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { PlusSquare, HomeIcon, Search, Popcorn } from "lucide-react"
 function SideNav() {
   const messages = useMessages()
   return (
@@ -24,13 +25,15 @@ function SideNav() {
           </NextIntlClientProvider>
         </div>
       </div>
-      <div className="flex md:hidden fixed bottom-0 left-0 bg-white dark:bg-neutral-950 h-20 justify-evenly w-full items-center">
-        mobilenav
-        <Avatar>
+      <div className="flex md:hidden fixed bottom-0 left-0 bg-white dark:bg-neutral-950 h-20 w-full justify-evenly items-center">
+        <HomeIcon className="w-8 h-8" />
+        <Search className="w-8 h-8" />
+        <PlusSquare className="w-8 h-8" />
+        <Popcorn className="w-8 h-8" />
+        <Avatar className="w-8 h-8">
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <Avatar />
       </div>
     </>
   )
