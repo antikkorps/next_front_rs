@@ -4,7 +4,7 @@ import NavLinks from "./NavLinks"
 import MoreDropdown from "./MoreDropdown"
 import { NextIntlClientProvider, useMessages } from "next-intl"
 import LogoutButton from "./auth/LogoutButton"
-
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 function SideNav() {
   const messages = useMessages()
   return (
@@ -24,8 +24,13 @@ function SideNav() {
           </NextIntlClientProvider>
         </div>
       </div>
-      <div className="flex md:hidden fixed bottom-0 left-0 bg-white dark:bg-neutral-950 h-20 justify-evenly w-full">
+      <div className="flex md:hidden fixed bottom-0 left-0 bg-white dark:bg-neutral-950 h-20 justify-evenly w-full items-center">
         mobilenav
+        <Avatar>
+          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+        <Avatar />
       </div>
     </>
   )
