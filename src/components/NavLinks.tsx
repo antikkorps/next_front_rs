@@ -60,7 +60,7 @@ function NavLinks() {
       {links.map((link) => {
         const LinkIcon = link.icon
         const checkPathnameData = checkPathname(link.href)
-        const currentPathname = usePathname() // Assurez-vous d'avoir une fonction usePathname appropriée
+        const currentPathname = usePathname()
         const currentPathnameWithoutLocale = currentPathname.replace(/^\/[a-z]{2}\b/, "")
         const isActive = checkPathnameData?.includes(currentPathnameWithoutLocale)
 
@@ -92,7 +92,7 @@ function NavigationLink<Pathname extends AppPathnames>({
   ...rest
 }: ComponentProps<typeof Link<Pathname>>) {
   const checkPathnameData = checkPathname(href)
-  const currentPathname = usePathname() // Assurez-vous d'avoir une fonction usePathname appropriée
+  const currentPathname = usePathname()
   const currentPathnameWithoutLocale = currentPathname.replace(/^\/[a-z]{2}\b/, "")
   const isActive = checkPathnameData?.includes(currentPathnameWithoutLocale)
 
