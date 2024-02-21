@@ -14,7 +14,7 @@ export const pathnames = {
     en: "/signup",
     fr: "/inscription",
   },
-  
+
   "/forgotten-password": {
     en: "/forgotten-password",
     fr: "/mot-de-passe-oublie",
@@ -33,8 +33,6 @@ export const pathnames = {
     en: "/mail-confirmation/resend",
     fr: "/confirmation-mail/renvoyer",
   },
-
-  
 
   "/internal-error": {
     en: "/internal-error",
@@ -75,6 +73,10 @@ export const pathnames = {
   "/dashboard/create": {
     en: "/dashboard/create",
     fr: "/tableau-de-bord/creer",
+  },
+  "/dashboard/profile": {
+    en: "/dashboard/profile",
+    fr: "/tableau-de-bord/profil",
   },
   "/shop": {
     en: "/shop",

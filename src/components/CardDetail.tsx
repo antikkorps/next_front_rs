@@ -4,19 +4,53 @@ import CardActionLikeBtn from "./ui/CardActionLikeBtn"
 import CardActionCommentBtn from "./ui/CardActionCommentBtn"
 import CardActionShareBtn from "./ui/CardActionShareBtn"
 import CardActionBookmarkBtn from "./ui/CardActionBookmarkBtn"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 export default function CardDetail() {
   return (
     <>
       <section className="container mx-auto p-10 md:py-20 px-0 md:p-10 md:px-0">
         <section className="relative px-10 md:p-0 transform duration-500 hover:shadow-2xl cursor-pointer hover:-translate-y-1 ">
-          <Image
-            className="xl:max-w-6xl"
-            width={800}
-            height={700}
-            src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt=""
-          />
+          <Carousel>
+            <CarouselContent>
+              <CarouselItem>
+                <Image
+                  className="xl:max-w-6xl"
+                  width={800}
+                  height={700}
+                  src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                />
+              </CarouselItem>
+              <CarouselItem>
+                <Image
+                  className="xl:max-w-6xl"
+                  width={800}
+                  height={700}
+                  src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                />
+              </CarouselItem>
+              <CarouselItem>
+                <Image
+                  className="xl:max-w-6xl"
+                  width={800}
+                  height={700}
+                  src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                />
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+
           <div className="bg-white dark:bg-neutral-950 p-2 pt-8 md:p-12 pb-12 lg:max-w-lg w-full lg:absolute top-0 right-0 h-full">
             <div className="text-base mt-4 flex justify-between">
               <div className="flex">
