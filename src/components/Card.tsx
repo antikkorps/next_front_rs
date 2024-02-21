@@ -16,7 +16,7 @@ interface Props {
   post: PostSchemaWithRelation
 }
 const Card = async (props: Props) => {
-  const { user, error } = await getUser();
+  const { user, error } = await getUser()
 
   let userId = null
   if (user) {
@@ -25,8 +25,7 @@ const Card = async (props: Props) => {
 
   const { userBookmarksLikes } = await getUserLikesBookmarksPosts(userId)
 
-  const { post } = props;
-
+  const { post } = props
 
   const messages = await getMessages()
   return (
@@ -47,16 +46,10 @@ const Card = async (props: Props) => {
         >
           <div className="text-base mt-4 flex justify-between relative pr-2">
             <div className="flex gap-2">
-
-              <CardActionLikeBtn
-                itemType="POST"
-                item={post}
-                userId={userId}
-              />
+              <CardActionLikeBtn itemType="POST" item={post} userId={userId} />
 
               <CardActionCommentBtn />
               <CardActionShareBtn />
-
             </div>
             <div className="">
               <CardActionBookmarkBtn
@@ -133,4 +126,4 @@ const Card = async (props: Props) => {
   )
 }
 
-export default Card;
+export default Card

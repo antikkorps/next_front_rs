@@ -5,7 +5,6 @@ import { getPosts } from "../../../../../actions"
 
 export default async function DashboardPage() {
   const posts = await getPosts()
- 
 
   return (
     <>
@@ -14,7 +13,7 @@ export default async function DashboardPage() {
       </div>
       <div>
         {posts.map((post) => (
-          <Card key={post.id} post={post} />  
+          <Card key={post.id} post={post} />
         ))}
       </div>
       {/* <CardDetail /> */}
