@@ -16,7 +16,7 @@ export default async function DashboardPage() {
           <Card key={post.id} post={post} />
         ))}
       </div>
-      {/* <CardDetail /> */}
+      <CardDetail />
     </>
   )
 }
