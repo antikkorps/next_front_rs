@@ -1,6 +1,6 @@
 "use client"
 
-import SingleErrorMessage from "@/components/errors/SingleError";
+import SingleErrorMessage from "@/components/errors/SingleFieldError";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -36,7 +36,6 @@ export default function ForgottenPassForm() {
 
   async function onSubmit(values: z.infer<typeof forgotPassFormSchemaValidation>) {
     setLoading(true);
-    
     const response = await forgotPassword(values);
     if (response.error && response.statusCode === 403) {
       setError(response.message)

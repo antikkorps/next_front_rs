@@ -4,6 +4,6 @@
     "register": "S'inscrire",
     "confirm": "Confirmer",
     "reset_password": "Changer le mot de passe",
-    "resend": "Renvoyer un mail"
+    "resend": "Renvoyer le mail de confirmation"
   }
 }

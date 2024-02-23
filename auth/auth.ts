@@ -7,6 +7,7 @@ import { cookies } from "next/headers"
 import { ForgotPassForm, ResetPassForm, forgotPassFormSchemaValidation, resetPasswordSchemaValidation } from "@/zod/auth/forgot-password"
 import { getSessionCookie } from "@/lib/auth-header"
 import { revalidatePath } from "next/cache"
+import { getUser } from "../actions/get-user.server"
 
 
 const session_cookie_name = process.env.NEXT_PUBLIC_SESSION_COOKIE || '';
@@ -86,7 +87,6 @@ export async function register(data: SignUpForm) {
   }
 }
 
-// To do
 export async function forgotPassword(data: ForgotPassForm) {
 
   const checkData = forgotPassFormSchemaValidation.safeParse(data)
@@ -147,6 +147,44 @@ export async function resetPassword(data: ResetPassForm) {
 }
 
 export async function resendEmailVerification() {
+  const {user} = await getUser();
 
+  if(!user) {
+    return {success: false, error: "No user found"}
+  }
+  try {
+    const response = await fetch(`${API_ENDPOINTS.RESEND_CONFIRMATION_MAIL}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: user.email
+      }),
+    })
+
+    
+    const data = await response.json()
+    console.log(data)
+    return data;
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 }
 
+export async function checkTokenEmailVerification(token: string) {
+  
+  const response = await fetch(`${API_ENDPOINTS.CHECK_CONFIRMATION_MAIL_TOKEN}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token
+    }),
+  })
+ 
+  const data = await response.json()
+  return data;
+}
