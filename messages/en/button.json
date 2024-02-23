@@ -4,6 +4,6 @@
     "register": "Register",
     "confirm": "Confirm",
     "reset_password": "Reset Password",
-    "resend": "Resend mail"
+    "resend": "Resend confirmation mail"
   }
 }

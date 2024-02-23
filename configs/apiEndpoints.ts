@@ -10,6 +10,8 @@ export const API_ENDPOINTS = {
   //TODO CORRECT THIS ENDPOINTS IN THE BACKEND
   FORGOTTEN_PASSWORD: `${BASE_URL}/auth/forgotten-password`,
   RESET_PASSWORD: `${BASE_URL}/auth/reset-password`,
+  RESEND_CONFIRMATION_MAIL: `${BASE_URL}/auth/resend-confirmation-mail-link`,
+  CHECK_CONFIRMATION_MAIL_TOKEN: `${BASE_URL}/auth/confirm-email-check-token`,
 
   //USERS RELATED
   USERS: `${BASE_URL}/users/all`,
