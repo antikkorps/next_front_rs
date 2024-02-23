@@ -24,14 +24,9 @@ export const pathnames = {
     fr: "/reinitialiser-mot-de-passe/[token]",
   },
 
-  "/mail-confirmation/success": {
-    en: "/mail-confirmation/success",
-    fr: "/confirmation-mail/succes",
-  },
-
-  "/mail-confirmation/resend": {
-    en: "/mail-confirmation/resend",
-    fr: "/confirmation-mail/renvoyer",
+  "/mail-confirmation": {
+    en: "/mail-confirmation",
+    fr: "/confirmation-mail",
   },
 
   "/internal-error": {

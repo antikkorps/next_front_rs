@@ -5,6 +5,10 @@
         "confirmation_message": {
             "title": "Confirmation du mail",
             "message": "Un mail de confirmation a été envoyé. Merci de cliquer sur le lien reçu. Si vous n'avez pas reçu de mail, veuillez vérifier votre dossier de courrier indésirable ou effectuer un nouveau renvoi de mail."
+        },
+        "toast": {
+            "success": "Mail de confirmation envoyé !",
+            "error": "Une erreur est survenue !"
         }
     }
 }

@@ -1,2 +1,1 @@
-- Ui de la page pour la validation de mot de passe : confirmation / formulaire pour renvoyer.
-- Sur un like sans être auth, créer et ajouter une modale + tab pour login/register.
+Mettre le like comme le bookmark.

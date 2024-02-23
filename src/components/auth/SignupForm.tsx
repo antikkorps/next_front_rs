@@ -13,7 +13,7 @@ import { register } from "../../../auth/auth"
 import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
-import SingleErrorMessage from "../errors/SingleError"
+import SingleErrorMessage from "../errors/SingleFieldError"
 import ConfirmationMessage from "./ConfirmationMessage"
 import { cn } from "@/lib/utils"
 

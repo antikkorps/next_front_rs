@@ -5,6 +5,10 @@
         "confirmation_message": {
             "title": "Confirmation Mail",
             "message": "We have sent a confirmation mail to your email address. Please click on the link in the mail to confirm your email address. If you don't receive the email within a few minutes, please check your spam folder or try again."
+        },
+        "toast": {
+            "success": "Confirmation mail sent !",
+            "error": "An error occured !"
         }
     }
 }

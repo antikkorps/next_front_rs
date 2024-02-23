@@ -12,7 +12,7 @@ import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { login } from "../../../auth/auth"
 import { Link, useRouter } from "@/i18n/navigation"
-import SingleErrorMessage from "../errors/SingleError"
+import SingleErrorMessage from "../errors/SingleFieldError"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 interface LoginFormProps {
