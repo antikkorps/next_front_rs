@@ -25,7 +25,7 @@ function SideNav() {
           </NextIntlClientProvider>
         </div>
       </div>
-      <div className="flex md:hidden fixed bottom-0 left-0 bg-white dark:bg-neutral-950 h-20 w-full justify-evenly items-center">
+      <div className="flex md:hidden fixed bottom-0 left-0 bg-white dark:bg-neutral-950 h-20 w-full justify-evenly z-10 items-center">
         <HomeIcon className="w-8 h-8" />
         <Search className="w-8 h-8" />
         <PlusSquare className="w-8 h-8" />

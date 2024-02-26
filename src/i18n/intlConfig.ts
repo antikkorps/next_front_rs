@@ -65,6 +65,10 @@ export const pathnames = {
     en: "/dashboard/notifications",
     fr: "/tableau-de-bord/notifications",
   },
+  "/dashboard/settings": {
+    en: "/dashboard/settings",
+    fr: "/tableau-de-bord/parametres",
+  },
   "/dashboard/create": {
     en: "/dashboard/create",
     fr: "/tableau-de-bord/creer",
