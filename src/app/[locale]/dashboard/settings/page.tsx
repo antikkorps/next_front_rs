@@ -11,7 +11,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
-import { getUser } from "../../../actions/get-user.server"
+import { getUser } from "../../../../../actions/get-user.server"
 
 export default function Profile() {
   const secondaryNavigation = [
@@ -28,6 +28,7 @@ export default function Profile() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false)
   //get the user profile
+  const user = getUser()
 
   return
   ;<>
