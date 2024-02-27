@@ -84,7 +84,7 @@ const Card = async (props: Props) => {
         </div>
         <h2 className="font-bold text-2xl">
           <a target="_blank" href="https://unsplash.com/photos/3-MftKobVtg">
-            Post Title
+            {post.title}
           </a>
         </h2>
         <div className="flex flex-col justify-between mt-3 ">
