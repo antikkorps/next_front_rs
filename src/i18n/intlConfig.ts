@@ -69,6 +69,10 @@ export const pathnames = {
     en: "/dashboard/settings",
     fr: "/tableau-de-bord/parametres",
   },
+  "/dashboard/post/[id]": {
+    en: "/dashboard/post/[id]",
+    fr: "/tableau-de-bord/post/[id]",
+  },
   "/dashboard/create": {
     en: "/dashboard/create",
     fr: "/tableau-de-bord/creer",
