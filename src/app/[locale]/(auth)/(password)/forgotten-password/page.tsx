@@ -6,11 +6,11 @@ export default function ForgottenPassword() {
   const messages = useMessages();
   return (
     <NextIntlClientProvider
-    messages={
-      pick(messages, ["Forgotten_Password", "Input", "Button"])
-    }
+      messages={pick(messages, ["Forgotten_Password", "Input", "Button"])}
     >
-      <ForgottenPassForm />
+      <div className="min-h-screen flex items-center justify-center">
+        <ForgottenPassForm />
+      </div>
     </NextIntlClientProvider>
-  )
+  );
 }

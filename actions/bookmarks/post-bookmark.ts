@@ -28,15 +28,11 @@ export async function bookmark(data: CreateBookmarkType) {
         };
     }
 
-    const {postId, userId} = checkData.data;
+    const {postId} = checkData.data;
 
     const authHeader = await getAuthHeader();
     const response = await fetch(`${API_ENDPOINTS.BOOKMARKS_CREATE}/${postId}`, {
         method: "POST",
-        // body: JSON.stringify({
-        //     postId,
-        //     userId
-        // }),
         credentials: "include",
         headers : authHeader
     })

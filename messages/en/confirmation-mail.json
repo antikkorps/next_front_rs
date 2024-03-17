@@ -9,6 +9,13 @@
         "toast": {
             "success": "Confirmation mail sent !",
             "error": "An error occured !"
+        },
+
+        "check": {
+            "verification_email": "Email verification",
+            "missing_token": "Link not valid or expired",
+            "already_confirmed": "Your email is already confirmed",
+            "confirmation_success": "Your email has been confirmed successfully"
         }
     }
 }

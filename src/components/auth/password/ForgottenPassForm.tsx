@@ -1,20 +1,28 @@
-"use client"
+"use client";
 
 import SingleErrorMessage from "@/components/errors/SingleFieldError";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/i18n/navigation";
 import { forgotPassFormSchemaValidation } from "@/zod/auth/forgot-password";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Waves } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { Waves } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { forgotPassword } from "../../../../auth/auth";
 import { toast } from "sonner";
 import ConfirmationMessage from "../ConfirmationMessage";
+import WrapperCard from "../WrapperCard";
 
 export default function ForgottenPassForm() {
   const tForgot = useTranslations("Forgotten_Password");
@@ -29,60 +37,59 @@ export default function ForgottenPassForm() {
     resolver: zodResolver(forgotPassFormSchemaValidation),
     defaultValues: {
       email: "",
-      cemail: ""
+      cemail: "",
     },
-    mode: "onChange"
-  })
+    mode: "onChange",
+  });
 
-  async function onSubmit(values: z.infer<typeof forgotPassFormSchemaValidation>) {
+  async function onSubmit(
+    values: z.infer<typeof forgotPassFormSchemaValidation>
+  ) {
     setLoading(true);
     const response = await forgotPassword(values);
     if (response.error && response.statusCode === 403) {
-      setError(response.message)
-      toast.error(tForgot('toast.error'))
+      setError(response.message);
+      toast.error(tForgot("toast.error"));
       setLoading(false);
       return;
     } else if (response.error && response.statusCode !== 403) {
-      toast.error(tForgot('toast.error'))
+      toast.error(tForgot("toast.error"));
       return;
     }
+    console.log({response})
     setMailSent(true);
-    toast.success(tForgot('toast.success'))
+    toast.success(tForgot("toast.success"));
     form.reset();
     setLoading(false);
   }
   return (
-    <>
-      <div className="flex min-h-screen flex-1 flex-col justify-center items-center px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm border px-10 py-4 rounded-xl shadow-sm bg-white/90 dark:bg-background">
-          {mailSent ? (
-            <ConfirmationMessage>
-              <h2 className="font-bold">{tForgot('confirmation_message.title')}</h2>
-              <p>{tForgot('confirmation_message.message')}</p>
-            </ConfirmationMessage>
-          ) : (
-          <>
-          <Waves className="justify-center mx-auto text-center h-16 w-16" />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-            {tForgot("title")}
-          </h2>
+    <WrapperCard
+      headerLabel={mailSent ? tForgot("confirmation_message.title") : tForgot("title")}
+      backButtonHref={mailSent ? null : "/login"}
+      backButtonLabel={mailSent ? null : tForgot("signin")}
+      beforeButtonText={mailSent ? null : tForgot("back")}
+    >
+      {mailSent ? (
+        <ConfirmationMessage>
+          <h2 className="font-bold">{tForgot("confirmation_message.title")}</h2>
+          <p>{tForgot("confirmation_message.message")}</p>
+        </ConfirmationMessage>
+      ) : (
+        <>
           {error && <SingleErrorMessage message={error} />}
-
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-6"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{tInput('Email.name')}</FormLabel>
+                    <FormLabel>{tInput("Email.name")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
                         autoComplete="email"
-                        placeholder={tInput('Email.placeholder')}
+                        placeholder={tInput("Email.placeholder")}
                         {...field}
                         className="input"
                       />
@@ -97,12 +104,12 @@ export default function ForgottenPassForm() {
                 name="cemail"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{tInput('CEmail.name')}</FormLabel>
+                    <FormLabel>{tInput("CEmail.name")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
                         autoComplete="email"
-                        placeholder={tInput('CEmail.placeholder')}
+                        placeholder={tInput("CEmail.placeholder")}
                         {...field}
                         className="input"
                       />
@@ -113,27 +120,21 @@ export default function ForgottenPassForm() {
               />
               <div className="pt-6">
                 <Button
-                  disabled={form.formState.isLoading || loading || !form.formState.isValid}
+                  disabled={
+                    form.formState.isLoading ||
+                    loading ||
+                    !form.formState.isValid
+                  }
                   className="w-full"
                   type="submit"
-                >{tButton('confirm')}</Button>
+                >
+                  {tButton("confirm")}
+                </Button>
               </div>
             </form>
           </Form>
-          <p className="mt-10 text-center text-sm text-gray-500">
-            {tForgot('back')}{" "}
-            <Link
-              href="/login"
-              className="classicLink"
-            >
-              {tForgot("signin")}
-            </Link>
-          </p>
-          </>
-          )}
-        </div>
-
-      </div>
-    </>
-  )
+        </>
+      )}
+    </WrapperCard>
+  );
 }
