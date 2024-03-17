@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LikeWithoutRelation, StoreLikeSchema } from "@/zod/likes/like";
 import { toast } from "sonner";
 import { AuthModal } from "../modals/auth/AuthModal";
+import { toastNoAuth } from "@/lib/global-toast/no-auth";
 
 
 
@@ -26,9 +27,7 @@ const CardActionLikeBtn = (props: CardActionLikeBtnProps) => {
 
   const [openModale, setOpenModale] = useState(false);
 
-  const toastNoAuth = () => {
-    return toast.error('Vous devez être connecté pour aimer un post')
-  }
+
   const predicate = (like: LikeWithoutRelation) => like.userId === userId && like.likedItemId === item.id 
   // && like.likeType === itemType
   const [optimisticLikes, addOptimisticLike] = useOptimistic<LikeWithoutRelation[]>(
@@ -60,7 +59,7 @@ const CardActionLikeBtn = (props: CardActionLikeBtnProps) => {
   useEffect(() => {
     if(form.formState.errors.userId && form.formState.errors.userId.message === "Expected number, received null"){
       setOpenModale(true)
-      toastNoAuth()
+      toastNoAuth("Vous devez être connecté pour aimer une publication")
       return;
     }
   }, [form.formState.errors])
