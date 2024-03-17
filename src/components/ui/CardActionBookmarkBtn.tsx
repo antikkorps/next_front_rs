@@ -10,6 +10,7 @@ import { Bookmark } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { bookmark } from "../../../actions/bookmarks/post-bookmark"
 import { AuthModal } from "../modals/auth/AuthModal"
+import { toastNoAuth } from "@/lib/global-toast/no-auth"
 
 
 interface UserPostBookmarks {
@@ -19,8 +20,6 @@ interface UserPostBookmarks {
 interface CardActionBookmarkBtnProps {
   post: any;
   userId: number;
-
-  // userBookmarksLikes: UserPostLikes & UserPostBookmarks;
   userBookmarks: number[];
 }
 
@@ -59,6 +58,7 @@ export default function CardActionBookmarkBtn(props: CardActionBookmarkBtnProps)
   useEffect(() => {
     if (form.formState.errors.userId && form.formState.errors.userId.message === "Expected number, received null") {
       setOpenModale(true)
+      toastNoAuth("Vous devez être connecté pour enregistrer une publication")
       return;
     }
   }, [form.formState.errors])
@@ -73,11 +73,11 @@ export default function CardActionBookmarkBtn(props: CardActionBookmarkBtnProps)
 
   const onSubmit = async (data: z.infer<typeof CreateBookmarkSchema>) => {
     startTransition(() => {
-      addOptimisticBookmark(post.id)
+      addOptimisticBookmark(data.postId)
     });
     const response = await bookmark({
       postId: post.id,
-      userId: userId
+      userId: data.userId
     })
     if (response.error && response.error.code === 403) {
       return;

@@ -11,7 +11,9 @@ export default function ResetPassword() {
       pick(messages, ["Reset_Password", "Forgotten_Password", "Input", "Button"])
     }
     >
-      <ResetPassForm />
+      <div className="min-h-screen flex items-center justify-center">
+        <ResetPassForm />
+      </div>
     </NextIntlClientProvider>
   )
 }

@@ -9,6 +9,13 @@
         "toast": {
             "success": "Mail de confirmation envoyé !",
             "error": "Une erreur est survenue !"
+        },
+
+        "check": {
+            "verification_email": "Vérification de l'email",
+            "missing_token": "Lien invalide ou expiré",
+            "already_confirmed": "Votre compte est déjà confirmé",
+            "confirmation_success": "Votre compte a été confirmé avec succès"
         }
     }
 }

@@ -16,13 +16,15 @@ export default function CardDetail() {
   return (
     <>
       <div className="container mx-auto md:py-20 px-0 md:p-10 md:px-0">
-        <div className="relative px-10 md:p-0 transform duration-500 hover:shadow-2xl cursor-pointer hover:-translate-y-1 ">
-          <div className="">
+        <div className="relative px-10 md:p-0 transform duration-500 hover:shadow-2xl cursor-pointer hover:-translate-y-1 
+          lg:grid-cols-5 lg:grid
+        ">
+          <div className="w-full lg:col-span-3">
             <Carousel>
               <CarouselContent>
                 <CarouselItem>
                   <Image
-                    className="xl:max-w-2xl"
+                    className="w-full"
                     width={800}
                     height={700}
                     src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -31,7 +33,7 @@ export default function CardDetail() {
                 </CarouselItem>
                 <CarouselItem>
                   <Image
-                    className="xl:max-w-2xl"
+                 
                     width={800}
                     height={700}
                     src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -40,7 +42,7 @@ export default function CardDetail() {
                 </CarouselItem>
                 <CarouselItem>
                   <Image
-                    className="xl:max-w-2xl"
+                 
                     width={800}
                     height={700}
                     src="https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -53,7 +55,7 @@ export default function CardDetail() {
             </Carousel>
           </div>
 
-          <div className="bg-white dark:bg-neutral-950 p-2 pt-8 md:p-12 pb-12 lg:max-w-lg w-full lg:absolute top-0 right-0 h-full">
+          <div className="lg:col-span-2 bg-white dark:bg-neutral-950 p-2 pt-8 md:p-12 pb-12 w-full h-full">
             <div className="text-base mt-4 flex justify-between">
               <div className="flex">
                 {/* <CardActionLikeBtn /> */}
