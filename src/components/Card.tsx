@@ -32,7 +32,7 @@ const Card = async (props: Props) => {
     <>
       <article className="w-4/5 mx-auto pb-5 max-w-lg transform duration-500 hover:-translate-y-1 cursor-pointer">
         <div className="max-h-full overflow-hidden">
-          <Link href={`/post/${post.id}`}>
+          <Link href={`/dashboard/post/${post.id}`}>
             <Image
               className="transform duration-300 hover:scale-110"
               width={500}
