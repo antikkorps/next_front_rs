@@ -41,7 +41,7 @@
     "@types/lodash": "^4.17.13",
     "@types/node": "^22",
     "@types/react": "^19",
-    "@types/react-dom": "^18",
+    "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
     "eslint": "^9",
     "eslint-config-next": "15.0.3",
